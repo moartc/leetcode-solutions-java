@@ -17,7 +17,7 @@ class SolutionTest {
     @Test
     void getIntersectionNodeTest1() {
         ListNode commonPart = new ListNode(8, new ListNode(4, new ListNode(5)));
-        ListNode headA = new ListNode(3, new ListNode(1, commonPart));
+        ListNode headA = new ListNode(4, new ListNode(1, commonPart));
         ListNode headB = new ListNode(5, new ListNode(6, new ListNode(1, commonPart)));
         ListNode actual = solution.getIntersectionNode(headA, headB);
         Assertions.assertEquals(commonPart.val, actual.val);
@@ -45,6 +45,15 @@ class SolutionTest {
         ListNode commonPart = new ListNode(3);
         ListNode headA = commonPart;
         ListNode headB = new ListNode(3, commonPart);
+        ListNode actual = solution.getIntersectionNode(headA, headB);
+        Assertions.assertEquals(commonPart.val, actual.val);
+    }
+
+    @Test
+    void getIntersectionNodeTest5() {
+        ListNode commonPart = new ListNode(2);
+        ListNode headA = new ListNode(1, commonPart);
+        ListNode headB = commonPart;
         ListNode actual = solution.getIntersectionNode(headA, headB);
         Assertions.assertEquals(commonPart.val, actual.val);
     }
