@@ -44,4 +44,12 @@ class SolutionTest {
         boolean actual = solution.isPalindrome(input);
         Assertions.assertFalse(actual);
     }
+
+    @Test
+    void isPalindromeTest5() {
+
+        int input = 1410110141;
+        boolean actual = solution.isPalindrome(input);
+        Assertions.assertTrue(actual);
+    }
 }
