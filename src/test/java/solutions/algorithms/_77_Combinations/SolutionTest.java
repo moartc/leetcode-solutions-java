@@ -16,12 +16,12 @@ class SolutionTest {
         int n = 4;
         int k = 2;
         List<List<Integer>> expected = List.of(
-                List.of(2,4),
-                List.of(3,4),
-                List.of(2,3),
-                List.of(1,2),
-                List.of(1,3),
-                List.of(1,4)
+                List.of(2, 4),
+                List.of(3, 4),
+                List.of(2, 3),
+                List.of(1, 2),
+                List.of(1, 3),
+                List.of(1, 4)
         );
         List<List<Integer>> actual = solution.combine(n, k);
         assertThat(actual).hasSameElementsAs(expected);
@@ -43,11 +43,20 @@ class SolutionTest {
         int n = 4;
         int k = 3;
         List<List<Integer>> expected = List.of(
-                List.of(1,2,3),
-                List.of(1,2,4),
-                List.of(1,3,4),
-                List.of(2,3,3)
+                List.of(1, 2, 3),
+                List.of(1, 2, 4),
+                List.of(1, 3, 4),
+                List.of(2, 3, 4)
         );
+        List<List<Integer>> actual = solution.combine(n, k);
+        assertThat(actual).hasSameElementsAs(expected);
+    }
+
+    @Test
+    void combineTest4() {
+        int n = 4;
+        int k = 4;
+        List<List<Integer>> expected = List.of(List.of(1, 2, 3, 4));
         List<List<Integer>> actual = solution.combine(n, k);
         assertThat(actual).hasSameElementsAs(expected);
     }
