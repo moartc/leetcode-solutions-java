@@ -44,4 +44,12 @@ class SolutionTest {
         int actual = solution.maxProfit(prices);
         Assertions.assertEquals(expected, actual);
     }
+
+    @Test
+    void maxProfitTest5() {
+        int[] prices = new int[]{4, 7, 2, 1};
+        int expected = 3;
+        int actual = solution.maxProfit(prices);
+        Assertions.assertEquals(expected, actual);
+    }
 }

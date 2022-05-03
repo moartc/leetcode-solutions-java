@@ -5,27 +5,20 @@ class Solution {
         if (prices.length < 2) {
             return 0;
         }
-        int buy = prices[0];
-        int sell = prices[1];
-        int profit = sell - buy;
+        int buyPrice = prices[0];
+        int sellPrice = prices[0];
+        int maxProfit = 0;
         for (int i = 1; i < prices.length; i++) {
-            int price = prices[i];
-            if (price > sell) {
-                sell = price;
-                int currentProfit = sell - buy;
-                if (currentProfit > profit) {
-                    profit = currentProfit;
-                }
+            int currentPrice = prices[i];
+            if (currentPrice > sellPrice) {
+                sellPrice = currentPrice;
             }
-            if (price < buy && i < prices.length - 1) {
-                buy = price;
-                sell = prices[i + 1];
-                int currentProfit = sell - buy;
-                if (currentProfit > profit) {
-                    profit = currentProfit;
-                }
+            if (currentPrice < buyPrice) {
+                maxProfit = Math.max(maxProfit, sellPrice - buyPrice);
+                buyPrice = currentPrice;
+                sellPrice = currentPrice;
             }
         }
-        return profit > 0 ? profit : 0;
+        return Math.max(maxProfit, sellPrice - buyPrice);
     }
 }
