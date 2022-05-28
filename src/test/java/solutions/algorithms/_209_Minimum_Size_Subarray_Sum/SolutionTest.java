@@ -18,7 +18,7 @@ class SolutionTest {
     void minSubArrayLenTest2() {
         int target = 4;
         int[] nums = new int[]{1, 4, 4};
-        Assertions.assertThat(solution.minSubArrayLen(target, nums)).isEqualTo(1);
+        Assertions.assertThat(solution.minSubArrayLen(target, nums)).isOne();
     }
 
     @Test
@@ -39,6 +39,6 @@ class SolutionTest {
     void minSubArrayLenTest5() {
         int target = 1;
         int[] nums = new int[]{1};
-        Assertions.assertThat(solution.minSubArrayLen(target, nums)).isEqualTo(1);
+        Assertions.assertThat(solution.minSubArrayLen(target, nums)).isOne();
     }
 }
