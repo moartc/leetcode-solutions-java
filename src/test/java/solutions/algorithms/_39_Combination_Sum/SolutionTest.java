@@ -22,7 +22,7 @@ class SolutionTest {
     void combinationSumTest2() {
         int[] candidates = new int[]{2, 3, 5};
         int target = 8;
-        List<List<Integer>> expected = List.of(List.of(2, 2, 2,2), List.of(2,3,3), List.of(3,5));
+        List<List<Integer>> expected = List.of(List.of(2, 2, 2, 2), List.of(2, 3, 3), List.of(3, 5));
         List<List<Integer>> actual = solution.combinationSum(candidates, target);
         Assertions.assertThat(actual).isEqualTo(expected);
     }
@@ -32,6 +32,15 @@ class SolutionTest {
         int[] candidates = new int[]{2};
         int target = 1;
         List<List<Integer>> expected = List.of();
+        List<List<Integer>> actual = solution.combinationSum(candidates, target);
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void combinationSumTest4() {
+        int[] candidates = new int[]{7, 6, 3, 2};
+        int target = 7;
+        List<List<Integer>> expected = List.of(List.of(2, 2, 3), List.of(7));
         List<List<Integer>> actual = solution.combinationSum(candidates, target);
         Assertions.assertThat(actual).isEqualTo(expected);
     }
