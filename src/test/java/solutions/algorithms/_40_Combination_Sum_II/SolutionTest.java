@@ -20,7 +20,7 @@ class SolutionTest {
                 List.of(2, 6)
         );
         List<List<Integer>> actual = solution.combinationSum2(candidates, target);
-        Assertions.assertThat(actual).isEqualTo(expected);
+        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
 
     @Test
@@ -32,16 +32,26 @@ class SolutionTest {
                 List.of(5)
         );
         List<List<Integer>> actual = solution.combinationSum2(candidates, target);
-        Assertions.assertThat(actual).isEqualTo(expected);
+        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
 
     @Test
     void combinationSum2Test3() {
-        int[] candidates = new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+        int[] candidates = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         int target = 27;
         List<List<Integer>> expected = List.of(
         );
         List<List<Integer>> actual = solution.combinationSum2(candidates, target);
-        Assertions.assertThat(actual).isEqualTo(expected);
+        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
+    }
+
+    @Test
+    void combinationSum2Test4() {
+        int[] candidates = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+        int target = 30;
+        List<List<Integer>> expected = List.of(
+        );
+        List<List<Integer>> actual = solution.combinationSum2(candidates, target);
+        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
 }
