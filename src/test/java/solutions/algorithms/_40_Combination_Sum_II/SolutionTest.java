@@ -39,7 +39,7 @@ class SolutionTest {
     void combinationSum2Test3() {
         int[] candidates = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         int target = 27;
-        List<List<Integer>> expected = List.of(        );
+        List<List<Integer>> expected = List.of();
         List<List<Integer>> actual = solution.combinationSum2(candidates, target);
         Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
     }
@@ -49,7 +49,29 @@ class SolutionTest {
         int[] candidates = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         int target = 30;
         List<List<Integer>> expected = List.of(
-                List.of(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+                List.of(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+        );
+        List<List<Integer>> actual = solution.combinationSum2(candidates, target);
+        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
+    }
+
+    @Test
+    void combinationSum2Test5() {
+        int[] candidates = new int[]{1, 1, 1, 1, 1};
+        int target = 5;
+        List<List<Integer>> expected = List.of(
+                List.of(1, 1, 1, 1, 1)
+        );
+        List<List<Integer>> actual = solution.combinationSum2(candidates, target);
+        Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
+    }
+
+    @Test
+    void combinationSum2Test6() {
+        int[] candidates = new int[]{1, 1, 1, 1, 2};
+        int target = 5;
+        List<List<Integer>> expected = List.of(
+                List.of(1, 1, 1, 2)
         );
         List<List<Integer>> actual = solution.combinationSum2(candidates, target);
         Assertions.assertThat(actual).containsExactlyInAnyOrderElementsOf(expected);
