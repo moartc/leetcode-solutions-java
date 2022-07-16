@@ -86,4 +86,12 @@ class SolutionTest {
         boolean actual = solution.exist(board, word);
         Assertions.assertThat(actual).isTrue();
     }
+
+    @Test
+    void existTest11() {
+        char[][] board = new char[][]{{'A', 'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A', 'A'}, {'A', 'A', 'A', 'A', 'A', 'A'}};
+        String word = "AAAAAAAAAAAAABB";
+        boolean actual = solution.exist(board, word);
+        Assertions.assertThat(actual).isFalse();
+    }
 }
