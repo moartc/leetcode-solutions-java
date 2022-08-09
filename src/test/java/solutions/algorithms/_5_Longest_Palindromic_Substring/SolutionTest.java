@@ -43,5 +43,15 @@ class SolutionTest {
         Assertions.assertThat(solution.longestPalindrome(s)).isEqualTo("a");
     }
 
+    @Test
+    void longestPalindromeTest7() {
+        String s = "bb";
+        Assertions.assertThat(solution.longestPalindrome(s)).isEqualTo("bb");
+    }
 
+    @Test
+    void longestPalindromeTest8() {
+        String s = "ac";
+        Assertions.assertThat(solution.longestPalindrome(s)).isEqualTo("a");
+    }
 }
