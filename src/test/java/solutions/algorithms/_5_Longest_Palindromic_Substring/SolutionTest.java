@@ -58,7 +58,13 @@ class SolutionTest {
 
     @Test
     void longestPalindromeTest9() {
-        String s = "abcdefghcbbd";
-        assertThat(solution.longestPalindrome(s)).isEqualTo("dd");
+        String s = "abcdefghbbd";
+        assertThat(solution.longestPalindrome(s)).isEqualTo("bb");
+    }
+
+    @Test
+    void longestPalindromeTest10() {
+        String s = "ccc";
+        assertThat(solution.longestPalindrome(s)).isEqualTo("ccc");
     }
 }
