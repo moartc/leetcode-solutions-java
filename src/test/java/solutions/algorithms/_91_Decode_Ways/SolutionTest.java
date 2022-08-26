@@ -43,4 +43,11 @@ class SolutionTest {
         String s = "10";
         assertThat(solution.numDecodings(s)).isEqualTo(1);
     }
+
+    @Test
+    void numDecodingsTest7() {
+        String s = "111111111111111111111111111111111111111111111";
+        assertThat(solution.numDecodings(s)).isEqualTo(1836311903);
+    }
+
 }
