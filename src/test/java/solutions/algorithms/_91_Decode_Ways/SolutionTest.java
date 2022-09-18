@@ -50,4 +50,15 @@ class SolutionTest {
         assertThat(solution.numDecodings(s)).isEqualTo(1836311903);
     }
 
+    @Test
+    void numDecodingsTest8() {
+        String s = "1110";
+        assertThat(solution.numDecodings(s)).isEqualTo(2);
+    }
+
+    @Test
+    void numDecodingsTest9() {
+        String s = "11111";
+        assertThat(solution.numDecodings(s)).isEqualTo(8);
+    }
 }
