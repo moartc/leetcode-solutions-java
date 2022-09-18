@@ -61,4 +61,22 @@ class SolutionTest {
         String s = "11111";
         assertThat(solution.numDecodings(s)).isEqualTo(8);
     }
+
+    @Test
+    void numDecodingsTest10() {
+        String s = "111";
+        assertThat(solution.numDecodings(s)).isEqualTo(3);
+    }
+
+    @Test
+    void numDecodingsTest11() {
+        String s = "11111111";
+        assertThat(solution.numDecodings(s)).isEqualTo(34);
+    }
+
+    @Test
+    void numDecodingsTest12() {
+        String s = "2101";
+        assertThat(solution.numDecodings(s)).isEqualTo(1);
+    }
 }
