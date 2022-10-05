@@ -1,7 +1,6 @@
 package solutions.algorithms._1143_Longest_Common_Subsequence;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 class SolutionTest {
@@ -98,6 +97,14 @@ class SolutionTest {
     void longestCommonSubsequenceTest13() {
         String text1 = "papmretkborsrurgtina";
         String text2 = "nsnupotstmnkfcfavaxgl";
+        int actual = solution.longestCommonSubsequence(text1, text2);
+        Assertions.assertThat(actual).isEqualTo(6);
+    }
+
+    @Test
+    void longestCommonSubsequenceTest14() {
+        // mhziwb
+        String text1 ="szulspmhwpazoxijwbq",  text2 = "mhzqrkzsnidwbun";
         int actual = solution.longestCommonSubsequence(text1, text2);
         Assertions.assertThat(actual).isEqualTo(6);
     }
