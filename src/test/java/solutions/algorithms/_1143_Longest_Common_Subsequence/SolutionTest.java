@@ -104,8 +104,15 @@ class SolutionTest {
     @Test
     void longestCommonSubsequenceTest14() {
         // mhziwb
-        String text1 ="szulspmhwpazoxijwbq",  text2 = "mhzqrkzsnidwbun";
+        String text1 = "szulspmhwpazoxijwbq", text2 = "mhzqrkzsnidwbun";
         int actual = solution.longestCommonSubsequence(text1, text2);
         Assertions.assertThat(actual).isEqualTo(6);
+    }
+
+    @Test
+    void longestCommonSubsequenceTest15() {
+        String text1 = "bmvcnwrmxcfcxabkxcvgbozmpspsbenazglyxkpibgzq", text2 = "bmpmlstotylonkvmhqjyxmnqzctonqtobahcrcbibgzgx";
+        int actual = solution.longestCommonSubsequence(text1, text2);
+        Assertions.assertThat(actual).isEqualTo(13);
     }
 }
