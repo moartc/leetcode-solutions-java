@@ -10,19 +10,18 @@ class Solution {
         for (int i = 0; i < t1.length; i++) {
             for (int j = 0; j < t2.length; j++) {
                 boolean eq = t1[i] == t2[j];
-                int toAssign = eq ? 1 : 0;
-                if (i == 0 && j == 0) {
-                    arr[i][j] = toAssign;
-                } else if (i == 0) {
-                    arr[i][j] = arr[i][j - 1] > 0 ? arr[i][j - 1] : toAssign;
-                } else if (j == 0) {
-                    arr[i][j] = arr[i - 1][j] > 0 ? arr[i - 1][j] : toAssign;
-                } else {
+                if (i != 0 && j != 0) {
                     if (eq && arr[i][j - 1] == arr[i - 1][j - 1]) {
                         arr[i][j] = arr[i][j - 1] + 1;
                     } else {
                         arr[i][j] = Integer.max(arr[i][j - 1], arr[i - 1][j]);
                     }
+                } else if (i == 0 && j == 0) {
+                    arr[0][0] = eq ? 1 : 0;
+                } else if (i == 0) {
+                    arr[i][j] = arr[0][j - 1] > 0 ? arr[0][j - 1] : eq ? 1 : 0;
+                } else {
+                    arr[i][0] = arr[i - 1][0] > 0 ? arr[i - 1][0] : eq ? 1 : 0;
                 }
             }
         }
