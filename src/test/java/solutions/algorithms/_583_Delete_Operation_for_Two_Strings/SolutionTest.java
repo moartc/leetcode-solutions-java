@@ -3,8 +3,6 @@ package solutions.algorithms._583_Delete_Operation_for_Two_Strings;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class SolutionTest {
 
     private final Solution solution = new Solution();
