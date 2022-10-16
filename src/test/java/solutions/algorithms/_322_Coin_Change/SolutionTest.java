@@ -78,4 +78,28 @@ class SolutionTest {
         int actual = solution.coinChange(coins, amount);
         Assertions.assertThat(actual).isEqualTo(20);
     }
+
+    @Test
+    void coinChangeTest10() {
+        int[] coins = new int[]{1, 2, 5};
+        int amount = 13;
+        int actual = solution.coinChange(coins, amount);
+        Assertions.assertThat(actual).isEqualTo(4);
+    }
+
+    @Test
+    void coinChangeTest11() {
+        int[] coins = new int[]{2, 5};
+        int amount = 12;
+        int actual = solution.coinChange(coins, amount);
+        Assertions.assertThat(actual).isEqualTo(3);
+    }
+
+    @Test
+    void coinChangeTest12() {
+        int[] coins = new int[]{2, 3};
+        int amount = 7;
+        int actual = solution.coinChange(coins, amount);
+        Assertions.assertThat(actual).isEqualTo(3);
+    }
 }
