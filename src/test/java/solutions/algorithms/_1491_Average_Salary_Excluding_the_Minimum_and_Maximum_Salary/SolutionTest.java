@@ -1,4 +1,4 @@
-package solutions.algorithms._1491_Average_Salary_Excluding_the_Mnimum_and_Maximum_Salary;
+package solutions.algorithms._1491_Average_Salary_Excluding_the_Minimum_and_Maximum_Salary;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
