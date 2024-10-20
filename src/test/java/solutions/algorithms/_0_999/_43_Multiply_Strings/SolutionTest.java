@@ -66,4 +66,34 @@ class SolutionTest {
         String multiply = solution.multiply(num1, num2);
         Assertions.assertThat(multiply).isEqualTo(expected);
     }
+
+    @Test
+    void multiplyTest7() {
+
+        String num1 = "46";
+        String num2 = "464";
+        String expected = "21344";
+        String multiply = solution.multiply(num1, num2);
+        Assertions.assertThat(multiply).isEqualTo(expected);
+    }
+
+    @Test
+    void multiplyTest8() {
+
+        String num1 = "46";
+        String num2 = "0";
+        String expected = "0";
+        String multiply = solution.multiply(num1, num2);
+        Assertions.assertThat(multiply).isEqualTo(expected);
+    }
+
+    @Test
+    void multiplyTest9() {
+
+        String num1 = "0";
+        String num2 = "0";
+        String expected = "0";
+        String multiply = solution.multiply(num1, num2);
+        Assertions.assertThat(multiply).isEqualTo(expected);
+    }
 }
