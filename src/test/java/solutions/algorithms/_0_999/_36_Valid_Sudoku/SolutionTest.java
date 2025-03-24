@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._36_Valid_Sudoku;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._36_Valid_Sudoku.Solution;
 
 class SolutionTest {
 
@@ -55,4 +54,22 @@ class SolutionTest {
 
         Assertions.assertThat(solution.isValidSudoku(board)).isFalse();
     }
+
+    @Test
+    void isValidSudokuTest4() {
+        char[][] board = new char[][]{
+                {'.', '.', '5', '.', '.', '.', '.', '.', '.'},
+                {'1', '.', '.', '2', '.', '.', '.', '.', '.'},
+                {'.', '.', '6', '.', '.', '3', '.', '.', '.'},
+                {'8', '.', '.', '.', '.', '.', '.', '.', '.'},
+                {'3', '.', '1', '5', '2', '.', '.', '.', '.'},
+                {'.', '.', '.', '.', '.', '.', '.', '4', '.'},
+                {'.', '.', '6', '.', '.', '.', '.', '.', '.'},
+                {'.', '.', '.', '.', '.', '.', '.', '9', '.'},
+                {'.', '.', '.', '.', '.', '.', '.', '.', '.'}
+        };
+
+        Assertions.assertThat(solution.isValidSudoku(board)).isFalse();
+    }
+
 }

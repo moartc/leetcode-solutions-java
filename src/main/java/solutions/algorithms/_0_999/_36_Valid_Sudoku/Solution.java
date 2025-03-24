@@ -5,50 +5,63 @@ import java.util.Set;
 
 class Solution {
 
-    private static final int SIZE = 9;
+    int SIZE = 9;
+
+    Set<Character> set = new HashSet<>(SIZE, 1);
 
     public boolean isValidSudoku(char[][] board) {
-        // check rows
-        Set<Character> set = new HashSet<>(SIZE);
 
-        for (int row = 0; row < SIZE; row++) {
-            for (int col = 0; col < SIZE; col++) {
-                if (board[row][col] != '.' && !set.add(board[row][col])) {
-                    return false;
-                }
-            }
+        // rows
+        for (int y = 0; y < SIZE; y++) {
             set.clear();
-        }
-        // check columns
-        for (int col = 0; col < SIZE; col++) {
-            for (int row = 0; row < SIZE; row++) {
-                if (board[row][col] != '.' && !set.add(board[row][col])) {
-                    return false;
+            for (int x = 0; x < SIZE; x++) {
+                if (board[y][x] != '.') {
+                    boolean add = set.add(board[y][x]);
+                    if (!add) {
+                        return false;
+                    }
                 }
             }
+        }
+
+        // cols
+        for (int x = 0; x < SIZE; x++) {
             set.clear();
-        }
-        // check sub-boxes
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (!checkSubBox(i, j, board, set)) {
-                    return false;
+            for (int y = 0; y < SIZE; y++) {
+                if (board[y][x] != '.') {
+                    boolean add = set.add(board[y][x]);
+                    if (!add) {
+                        return false;
+                    }
                 }
-                set.clear();
             }
         }
-        // all board valid
+
+        // check small square
+        for (int y = 0; y < 3; y++) {
+            for (int x = 0; x < 3; x++) {
+                if (!checkSmallSquare(3 * y, 3 * x, set, board)) {
+                    return false;
+                }
+            }
+        }
+
         return true;
     }
 
-    boolean checkSubBox(int i, int j, char[][] board, Set<Character> set) {
-        for (int row = i * 3; row < (i + 1) * 3; row++) {
-            for (int col = j * 3; col < (j + 1) * 3; col++) {
-                if (board[row][col] != '.' && !set.add(board[row][col])) {
-                    return false;
+    boolean checkSmallSquare(int startY, int startX, Set<Character> set, char[][] board) {
+        set.clear();
+        for (int y = startY; y < startY + 3; y++) {
+            for (int x = startX; x < startX + 3; x++) {
+                if (board[y][x] != '.') {
+                    boolean add = set.add(board[y][x]);
+                    if (!add) {
+                        return false;
+                    }
                 }
             }
         }
         return true;
     }
+
 }
