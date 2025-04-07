@@ -1,33 +1,54 @@
 package solutions.algorithms._0_999._125_Valid_Palindrome;
 
 class Solution {
+    private static boolean isAlphaNumeric(char c) {
+        // 97 - 122 - lower case
+        // 65 - 90 - upper case
+        // 48 - 57 - numbers
+        return (c >= 97 && c <= 122) || (c >= 65 && c <= 90) || (c >= 48 && c <= 57);
+    }
+
+    private static char toLower(char c) {
+        if (c >= 97 && c <= 122) {
+            return c;
+        } else if (c >= 65 && c <= 90) {
+            return (char) (c + 32);
+        } else {
+            return c;
+        }
+    }
+
     public boolean isPalindrome(String s) {
 
-        int begin = 0;
-        int end = s.length() - 1;
-        while (begin < end) {
-            while (getChar(s.charAt(begin)) == 0 && begin < end) {
-                begin++;
+        char[] charArray = s.toCharArray();
+
+        int first = 0;
+        int second = charArray.length - 1;
+
+        while (first < second) {
+            char c1 = charArray[first];
+            char c2 = charArray[second];
+
+            if (!isAlphaNumeric(c1)) {
+                first++;
+                continue;
             }
-            while (getChar(s.charAt(end)) == 0 && begin < end) {
-                end--;
+
+            if (!isAlphaNumeric(c2)) {
+                second--;
+                continue;
             }
-            if (getChar(s.charAt(begin)) != getChar(s.charAt(end))) {
+
+            char c1Lc = toLower(c1);
+            char c2Lc = toLower(c2);
+            if (c1Lc != c2Lc) {
                 return false;
             }
-            begin++;
-            end--;
+            first++;
+            second--;
+
         }
         return true;
     }
 
-    public char getChar(char c) {
-        if (c >= 65 && c <= 90) {
-            return ((char) (c + 32));
-        } else if ((c >= 97 && c <= 122) || (c >= 48 && c <= 57)) {
-            return c;
-        } else {
-            return 0;
-        }
-    }
 }
