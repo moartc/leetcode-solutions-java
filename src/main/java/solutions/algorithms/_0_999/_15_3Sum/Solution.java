@@ -1,47 +1,50 @@
 package solutions.algorithms._0_999._15_3Sum;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
 
-        Map<Integer, Integer> map = new HashMap<>();
-        for (int i : nums) {
-            map.merge(i, 1, (integer, integer2) -> ++integer);
-        }
+        int[] sortedArray = Arrays.stream(nums).sorted().toArray();
         List<List<Integer>> result = new ArrayList<>();
-        for (Map.Entry<Integer, Integer> entry1 : map.entrySet()) {
-            int key1 = entry1.getKey();
-            if(key1 > 0) {
-                continue;
+
+        int i = 0;
+
+        while (i < sortedArray.length) {
+            int valI = sortedArray[i];
+            if (valI > 0) {
+                break;
             }
-            for (int key2 : map.keySet()) {
-                if(key2 < key1) {
-                    continue;
-                }
-                int toFind = -(key1 + key2);
-                if (toFind < key2) {
-                    continue;
-                }
-                if (map.containsKey(toFind)) {
-                    if (key1 != key2 && key2 != toFind) {
-                        result.add(List.of(key1, key2, toFind));
-                    } else {
-                        if (key1 == key2) { // i == j
-                            if (key1 == toFind) { // i == j == k
-                                if (entry1.getValue() >= 3) {
-                                    result.add(List.of(key1, key2, toFind));
-                                }
-                            } else if (map.get(key1) >= 2) {
-                                result.add(List.of(key1, key2, toFind));
-                            }
-                        } else if (map.get(toFind) >= 2) { // i != j && (i == k || j == k)
-                            result.add(List.of(key1, key2, toFind));
-                        }
-                    }
+            int j = i + 1;
+            int k = sortedArray.length - 1;
+            while (j < k) {
+                int sum = valI + sortedArray[j] + sortedArray[k];
+                if (sum > 0) {
+                    k--;
+                } else if (sum < 0) {
+                    j++;
+                } else { // sum == 0
+                    List<Integer> listToAdd = new ArrayList<>();
+                    listToAdd.add(valI);
+                    listToAdd.add(sortedArray[j]);
+                    listToAdd.add(sortedArray[k]);
+                    result.add(listToAdd);
+
+                    do {
+                        j++;
+                    } while (j < k && sortedArray[j - 1] == sortedArray[j]);
                 }
             }
+            do {
+                i++;
+            } while (i < sortedArray.length && sortedArray[i] == sortedArray[i - 1]);
         }
-        return result;
+        List<List<Integer>> finalResult = new ArrayList<>();
+        for (List<Integer> integers : result) {
+            finalResult.add(integers.stream().toList());
+        }
+        return finalResult;
     }
 }
