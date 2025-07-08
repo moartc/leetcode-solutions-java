@@ -1,52 +1,29 @@
 package solutions.algorithms._0_999._74_Search_a_2D_Matrix;
 
 class Solution {
+
+
     public boolean searchMatrix(int[][] matrix, int target) {
 
-        int low = binSearchRow(matrix, target);
-        if (low == -1) {
+        int lastIdx = (matrix.length * matrix[0].length) - 1;
+        return search(0, lastIdx, matrix, target);
+    }
+
+    boolean search(int left, int right, int[][] matrix, int target) {
+
+        int indexToCheck = (left + right) / 2;
+        int rowToCheck = ((indexToCheck) / matrix[0].length);
+        int colToCheck = indexToCheck - (rowToCheck * matrix[0].length);
+
+        int value = matrix[rowToCheck][colToCheck];
+        if (value == target) {
+            return true;
+        } else if (left == right) {
             return false;
-        }
-        return binSearchNumber(matrix[low], target);
-    }
-
-    int binSearchRow(int[][] matrix, int target) {
-        int lastRow = matrix.length - 1;
-        int lastCol = matrix[lastRow].length - 1;
-        if (target > matrix[lastRow][lastCol] || target < matrix[0][0]) {
-            return -1;
-        }
-        int low = 0;
-        int high = matrix.length - 1;
-        while (high - low > 1) {
-            int middle = low + ((high - low) / 2);
-            if (matrix[middle][0] > target) {
-                high = middle;
-            } else {
-                low = middle;
-            }
-        }
-        if (target >= matrix[high][0]) {
-            return high;
+        } else if (value > target) {
+            return search(left, indexToCheck, matrix, target);
         } else {
-            return low;
+            return search(indexToCheck + 1, right, matrix, target);
         }
-    }
-
-    boolean binSearchNumber(int[] matrix, int target) {
-        int low = 0;
-        int high = matrix.length - 1;
-        while (high - low > 1) {
-            int middle = low + ((high - low) / 2);
-            if (matrix[middle] == target) {
-                return true;
-            }
-            if (matrix[middle] > target) {
-                high = middle;
-            } else {
-                low = middle;
-            }
-        }
-        return target == matrix[high] || target == matrix[low];
     }
 }
