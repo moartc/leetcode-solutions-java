@@ -18,4 +18,29 @@ class Solution {
         }
         return nums[left] < nums[right] ? nums[left] : nums[right];
     }
+
+    /*
+    recursive solution
+
+    public int findMin(int[] nums) {
+        return binSearch(0, nums.length - 1, nums);
+    }
+
+    int binSearch(int leftIndex, int rightIndex, int[] nums) {
+
+        if (leftIndex == rightIndex) {
+            return nums[leftIndex];
+        }
+        int rV = nums[rightIndex];
+
+        int middleIndex = (leftIndex + rightIndex) / 2;
+        int middleValue = nums[middleIndex];
+
+        if (middleValue > rV) {
+            return binSearch(middleIndex+1, rightIndex, nums);
+        } else {
+            return binSearch(leftIndex, middleIndex, nums);
+        }
+    }
+     */
 }
