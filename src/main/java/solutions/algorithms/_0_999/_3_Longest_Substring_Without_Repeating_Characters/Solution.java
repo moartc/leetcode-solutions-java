@@ -5,29 +5,41 @@ import java.util.*;
 class Solution {
     public int lengthOfLongestSubstring(String s) {
 
-        int length = s.length();
-        if (length <= 1) {
-            return length;
+
+        if (s.isEmpty()) {
+            return 0;
+        } else if (s.length() == 1) {
+            return 1;
         }
-        LinkedList<Character> c = new LinkedList<>();
-        int max = 1;
+        // length is >= 2
+        char[] charArray = s.toCharArray();
+        Set<Character> set = new HashSet<>();
+
+        int i = 0;
         int j = 1;
-        c.add(s.charAt(0));
-        while (j < length) {
-            if (c.contains(s.charAt(j))) {
-                if (c.size() > max) {
-                    max = c.size();
-                }
-                int index = c.indexOf(s.charAt(j));
-                int ctr = 0;
-                while (ctr <= index) {
-                    c.remove(0);
-                    ctr++;
-                }
+
+        set.add(charArray[0]);
+
+        int longestFound = 1;
+
+        while (j < charArray.length) {
+
+            // get the next possible element
+            char next = charArray[j];
+            if (set.contains(next)) {
+                // it's already added
+                // remove one pointed by i and retry
+                char beginningChar = charArray[i];
+                set.remove(beginningChar);
+                i++;
+            } else {
+                set.add(next);
+                j++;
+                longestFound = Math.max(longestFound, set.size());
             }
-            c.add(s.charAt(j));
-            j++;
         }
-        return Math.max(c.size(), max);
+        return longestFound;
     }
+
+    // a b c d b e f g h i j k l
 }
