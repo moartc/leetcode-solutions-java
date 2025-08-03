@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._567_Permutation_in_String;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._567_Permutation_in_String.Solution;
 
 class SolutionTest {
 
