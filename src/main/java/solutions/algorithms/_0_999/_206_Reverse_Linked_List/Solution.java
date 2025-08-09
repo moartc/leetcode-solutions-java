@@ -4,28 +4,36 @@ import commons.ListNode;
 
 class Solution {
     public ListNode reverseList(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-        if (head.next == null) {
+
+        // there is no or only one element
+        if (head == null || head.next == null) {
             return head;
         }
-        ListNode prev = head;
+
+        // case for 2 also has a special handling
+        // set original head.next to null
+        // and assign original head as a next of this 2nd element and return it
         ListNode current = head.next;
+        if (current.next == null) {
+            current.next = head;
+            head.next = null;
+            return current;
+        }
+
+        // there are at least 3 elements
+        ListNode prev = head;
+        // second already defined
         ListNode next = current.next;
+
+        // first set prev.next to null
         prev.next = null;
-        while (next != null && next.next != null) {
+        while (next != null) {
+            next = current.next;
             current.next = prev;
             prev = current;
             current = next;
-            next = next.next;
         }
-        current.next = prev;
-        if (next != null) {
-            next.next = current;
-            return next;
-        } else {
-            return current;
-        }
+        // handle last node
+        return prev;
     }
 }

@@ -18,14 +18,6 @@ public class ListNode {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(val);
-        ListNode tmp = next;
-        while(tmp != null) {
-            sb.append(" -> ");
-            sb.append(tmp.val);
-            tmp = tmp.next;
-        }
-        return sb.toString();
+        return "val=" + val;
     }
 }

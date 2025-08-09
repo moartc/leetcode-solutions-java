@@ -4,7 +4,6 @@ import commons.ListNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._206_Reverse_Linked_List.Solution;
 
 class SolutionTest {
 
@@ -45,6 +44,14 @@ class SolutionTest {
         ListNode input = null;
         ListNode actual = solution.reverseList(input);
         Assertions.assertNull(actual);
+    }
+
+    @Test
+    void reverseListTest5() {
+        ListNode input = new ListNode(1, new ListNode(2, new ListNode(3)));
+        ListNode expected = new ListNode(3, new ListNode(2, new ListNode(1)));
+        ListNode actual = solution.reverseList(input);
+        assertEquals(expected, actual);
     }
 
     void assertEquals(ListNode expected, ListNode actual) {
