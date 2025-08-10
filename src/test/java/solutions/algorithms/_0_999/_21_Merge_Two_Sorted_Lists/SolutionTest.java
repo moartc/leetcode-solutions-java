@@ -77,4 +77,34 @@ class SolutionTest {
         }
         Assertions.assertIterableEquals(List.of(1, 2, 2, 3, 4, 4), actualList);
     }
+
+    @Test
+    void mergeTwoListsTest5() {
+
+        ListNode l1 = new ListNode(2);
+        ListNode l2 = new ListNode(1);
+
+        ListNode returned = solution.mergeTwoLists(l1, l2);
+        List<Integer> actualList = new ArrayList<>();
+        while (returned != null) {
+            actualList.add(returned.val);
+            returned = returned.next;
+        }
+        Assertions.assertIterableEquals(List.of(1, 2), actualList);
+    }
+
+    @Test
+    void mergeTwoListsTest6() {
+
+        ListNode l1 = new ListNode(-9, new ListNode(3));
+        ListNode l2 = new ListNode(5, new ListNode(7));
+
+        ListNode returned = solution.mergeTwoLists(l1, l2);
+        List<Integer> actualList = new ArrayList<>();
+        while (returned != null) {
+            actualList.add(returned.val);
+            returned = returned.next;
+        }
+        Assertions.assertIterableEquals(List.of(-9,3,5,7), actualList);
+    }
 }

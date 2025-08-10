@@ -11,30 +11,40 @@ class Solution {
         if (l2 == null) {
             return l1;
         }
-        ListNode ptrHead;
-        ListNode ptrTmp;
-        ListNode first;
-        ListNode second;
-        if (l1.val > l2.val) {
-            first = l2;
-            second = l1;
-        } else {
-            first = l1;
-            second = l2;
+        // point the current node from the new list
+        ListNode current;
+        ListNode headToReturn;
+        // check the first element outside the loop and set head to return
+        if (l1.val <= l2.val) {
+            current = l1;
+            headToReturn = current;
+            l1 = l1.next;
+        } else { // l1 val > l2.val
+            current = l2;
+            headToReturn = current;
+            l2 = l2.next;
         }
-        ptrHead = first;
-        while (true) {
-            if (first.next == null) {
-                first.next = second;
-                return ptrHead;
-            }
-            if (first.next.val <= second.val) {
-                first = first.next;
+        // iterate through both list until both have elements
+        while (l1 != null && l2 != null) {
+            ListNode next;
+            if (l1.val <= l2.val) {
+                next = l1;
+                l1 = l1.next;
             } else {
-                ptrTmp = first.next;
-                first.next = second;
-                second = ptrTmp;
+                next = l2;
+                l2 = l2.next;
             }
+            current.next = next;
+            current = current.next;
         }
+        // add remaining part iterate through remaining one (if there is such)
+        if (l1 != null) {
+            current.next = l1;
+        }
+        if (l2 != null) {
+            current.next = l2;
+        }
+        return headToReturn;
     }
+
 }
