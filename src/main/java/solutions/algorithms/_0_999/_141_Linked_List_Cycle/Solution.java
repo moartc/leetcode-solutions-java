@@ -4,9 +4,8 @@ import commons.ListNode;
 
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if (head == null) {
-            return false;
-        }
+
+        // FLoyd's cycle detection algorithm
         ListNode slow = head;
         ListNode fast = head;
         while (fast != null && fast.next != null) {
