@@ -26,7 +26,6 @@ class Solution {
         ListNode slow = head;
 
         // wait n steps and continue iterating until the fast reaches the end
-        boolean wasMoved = false;
         int waiting = 0;
         while (fast.next != null) {
             fast = fast.next;
