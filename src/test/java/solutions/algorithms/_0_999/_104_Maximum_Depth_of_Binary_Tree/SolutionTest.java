@@ -4,7 +4,6 @@ import commons.TreeNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._104_Maximum_Depth_of_Binary_Tree.Solution;
 
 class SolutionTest {
 

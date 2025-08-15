@@ -3,22 +3,29 @@ package solutions.algorithms._0_999._104_Maximum_Depth_of_Binary_Tree;
 import commons.TreeNode;
 
 class Solution {
+
+    int maxFound = 0;
     public int maxDepth(TreeNode root) {
-        if (root == null) {
+
+        if(root == null) {
             return 0;
         }
-        return getDepth(root, 1);
+        count (root,  0);
+        return maxFound;
     }
 
-    public int getDepth(TreeNode node, int depth) {
-        int leftDepth = depth;
-        int rightDepth = depth;
-        if (node.left != null) {
-            leftDepth = getDepth(node.left, ++leftDepth);
+    private void count (TreeNode node, int counter) {
+        counter++;
+        if(maxFound < counter) {
+            maxFound = counter;
         }
-        if (node.right != null) {
-            rightDepth = getDepth(node.right, ++rightDepth);
+        TreeNode left = node.left;
+        if(left != null) {
+            count(left, counter);
         }
-        return Math.max(leftDepth, rightDepth);
+        TreeNode right = node.right;
+        if(right != null) {
+            count(right, counter);
+        }
     }
 }
