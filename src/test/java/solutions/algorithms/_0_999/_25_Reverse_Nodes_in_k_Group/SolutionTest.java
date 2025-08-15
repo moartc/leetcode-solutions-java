@@ -155,7 +155,7 @@ class SolutionTest {
     @Test
     void reverseKGroupTest5() {
 
-        ListNode l2 = new ListNode(2) ;
+        ListNode l2 = new ListNode(2);
         ListNode l1 = new ListNode(1, l2);
         int k = 2;
 
