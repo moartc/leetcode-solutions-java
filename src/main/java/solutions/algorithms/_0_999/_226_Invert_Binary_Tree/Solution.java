@@ -4,22 +4,23 @@ import commons.TreeNode;
 
 class Solution {
     public TreeNode invertTree(TreeNode root) {
+
         if (root == null) {
             return null;
         }
-        swapChild(root);
+
+        invert(root);
         return root;
     }
 
-    private void swapChild(TreeNode root) {
-        if (root.left != null) {
-            swapChild(root.left);
+    void invert(TreeNode root) {
+        if (root == null) {
+            return;
         }
-        if (root.right != null) {
-            swapChild(root.right);
-        }
-        TreeNode temp = root.left;
+        TreeNode left = root.left;
         root.left = root.right;
-        root.right = temp;
+        root.right = left;
+        invert(root.left);
+        invert(root.right);
     }
 }
