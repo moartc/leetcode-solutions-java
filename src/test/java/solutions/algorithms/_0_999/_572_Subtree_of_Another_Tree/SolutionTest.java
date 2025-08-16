@@ -3,7 +3,6 @@ package solutions.algorithms._0_999._572_Subtree_of_Another_Tree;
 import commons.TreeNode;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._572_Subtree_of_Another_Tree.Solution;
 
 class SolutionTest {
 

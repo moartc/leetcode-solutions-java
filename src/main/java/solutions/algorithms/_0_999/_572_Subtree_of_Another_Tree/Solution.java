@@ -19,32 +19,43 @@ import commons.TreeNode;
  */
 class Solution {
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        return findSubRoot(root, subRoot);
+
+        /*
+        just visit all nodes in the main tree,
+        if it's value is equal to the subRoot value - check if they are equal if so, then return true up
+        if not, then continue check for left node and right node, if any of them returns true - return it as an answer
+         */
+
+        return visit(root, subRoot);
     }
 
-    boolean findSubRoot(TreeNode node, TreeNode subRoot) {
-        boolean equal = isEqual(node, subRoot);
-        if (equal) {
+    boolean visit(TreeNode root, TreeNode subRoot) {
+
+        if (areEqual(root, subRoot)) {
             return true;
-        } else if (node != null) {
-            return findSubRoot(node.left, subRoot) || findSubRoot(node.right, subRoot);
+        }
+
+        if (root.left != null && visit(root.left, subRoot)) {
+            return true;
+        }
+        if (root.right != null && visit(root.right, subRoot)) {
+            return true;
         }
         return false;
     }
 
-    boolean isEqual(TreeNode startNode, TreeNode subRoot) {
-        if (startNode == null && subRoot == null) {
-            return true;
-        } else if (startNode == null) {
+    boolean areEqual(TreeNode root, TreeNode subRoot) {
+        if ((root != null && subRoot == null) || (root == null && subRoot != null)) {
+            // there is no sub root node - it doesn't matter what's in the root
             return false;
-        } else if (subRoot == null) {
-            return false;
-        } else {
-            if (startNode.val != subRoot.val) {
-                return false;
-            } else {
-                return isEqual(startNode.left, subRoot.left) && isEqual(startNode.right, subRoot.right);
-            }
         }
+        if (root == null) {
+            return true;
+        }
+        // here both are non-null
+        if (root.val != subRoot.val) {
+            return false;
+        }
+        return areEqual(root.left, subRoot.left) && areEqual(root.right, subRoot.right);
     }
 }
