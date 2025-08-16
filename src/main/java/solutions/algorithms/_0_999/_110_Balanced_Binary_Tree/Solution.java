@@ -8,28 +8,46 @@ class Solution {
         if (root == null) {
             return true;
         }
-        return getTreeDepth(root, 0) != -1;
+        int depth = depth(root);
+        // if it's -1 then it's unbalanced, otherwise is balanced
+        return depth != -1;
     }
 
-    public int getTreeDepth(TreeNode node, int depth) {
+    // returns depth as an integer <0...Int.MAX> or -1 in the case of unbalanced true
+    private int depth(TreeNode node) {
 
-        int leftDepth = depth;
-        int rightDepth = depth;
-        if (node.left != null) {
-            leftDepth = getTreeDepth(node.left, ++leftDepth);
-            if (leftDepth == -1) {
+        TreeNode left = node.left;
+        TreeNode right = node.right;
+
+        int leftDepth = 0;
+        int rightDepth = 0;
+        if (left != null) {
+            int depthInside = depth(left);
+            if (depthInside == -1) {
+                // if it's -1 - it's unbalanced inside - return it
                 return -1;
             }
+            leftDepth = 1 + depthInside;
         }
-        if (node.right != null) {
-            rightDepth = getTreeDepth(node.right, ++rightDepth);
-            if (rightDepth == -1) {
+
+        if (right != null) {
+            int depthInside = depth(right);
+            if (depthInside == -1) {
+                // if it's -1 - it's unbalanced inside - return it
                 return -1;
             }
+            rightDepth = 1 + depthInside;
         }
+
+        // check if it's balanced
         if (Math.abs(leftDepth - rightDepth) > 1) {
             return -1;
+        } else {
+            // else return greater depth
+            return Math.max(leftDepth, rightDepth);
         }
-        return Math.max(leftDepth, rightDepth);
+
+
     }
+
 }
