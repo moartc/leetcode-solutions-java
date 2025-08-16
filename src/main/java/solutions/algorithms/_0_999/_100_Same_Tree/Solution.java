@@ -4,29 +4,26 @@ import commons.TreeNode;
 
 class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        if (p == null && q == null) {
-            return true;
-        } else if (p == null || q == null) {
-            return false;
-        }
-        return areEquals(p, q);
+
+        return areNodesIdentical(p, q);
     }
 
-    boolean areEquals(TreeNode p, TreeNode q) {
-        if (p.left != null && q.left != null) {
-            if (!areEquals(p.left, q.left)) {
-                return false;
-            }
-        } else if (p.left != null || q.left != null) {
+    private boolean areNodesIdentical(TreeNode p, TreeNode q) {
+
+        if ((p == null && q != null) || (p != null && q == null)) {
+            // only one of them is null
             return false;
         }
-        if (p.right != null && q.right != null) {
-            if (!areEquals(p.right, q.right)) {
-                return false;
-            }
-        } else if (p.right != null || q.right != null) {
+
+        if (p == null && q == null) {
+            // both are null and that's fine
+            return true;
+        }
+        // here I know that both are non-null
+
+        if (p.val != q.val) {
             return false;
         }
-        return p.val == q.val;
+        return areNodesIdentical(p.left, q.left) && areNodesIdentical(p.right, q.right);
     }
 }
