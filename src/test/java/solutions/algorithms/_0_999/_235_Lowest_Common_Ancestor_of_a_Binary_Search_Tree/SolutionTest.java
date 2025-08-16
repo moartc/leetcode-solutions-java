@@ -4,7 +4,6 @@ import commons.TreeNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._235_Lowest_Common_Ancestor_of_a_Binary_Search_Tree.Solution;
 
 
 class SolutionTest {
