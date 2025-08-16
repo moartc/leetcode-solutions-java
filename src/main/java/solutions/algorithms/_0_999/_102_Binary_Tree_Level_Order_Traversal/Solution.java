@@ -24,9 +24,47 @@ import java.util.List;
 class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
 
-//        return solutionOne(root);
-        return solutionTwo(root);
+        if (root == null) {
+            return List.of();
+        }
+
+        /*
+        I can keep the list of results and put it as a parameter to my method. Return it at the end
+        I can track the level of the visited node, and when I enter the new one
+        I can get the list from the index corresponding to the current level (or add a new list if it's not added yet)
+        then add a new element to this list
+        Because I first visit left node, the order in all sublists should be correct.
+         */
+        List<List<Integer>> results = new ArrayList<>();
+        add(root, 0, results);
+        return results;
     }
+
+    void add(TreeNode node, int level, List<List<Integer>> list) {
+
+        if (node == null) {
+            return;
+        }
+        // for level 2 I need a size at least level+1
+        if (list.size() < level + 1) {
+            List<Integer> newList = new ArrayList<>();
+            list.add(newList);
+        }
+        // add this node to the list
+        List<Integer> listForLevel = list.get(level);
+        listForLevel.add(node.val);
+        // visit first left
+        add(node.left, level + 1, list);
+        // amd then right
+        add(node.right, level + 1, list);
+    }
+
+
+    /*
+    -------------------------------------------------------------------------------------------------------------
+    here starts some old code -  in the main method I called it this way:
+    return solutionTwo(root);
+     */
 
     List<List<Integer>> solutionTwo(TreeNode root) {
         if (root == null) {
@@ -105,4 +143,5 @@ class Solution {
             return left || right;
         }
     }
+
 }

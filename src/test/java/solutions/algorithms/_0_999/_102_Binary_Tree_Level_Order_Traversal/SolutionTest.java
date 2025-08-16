@@ -3,7 +3,6 @@ package solutions.algorithms._0_999._102_Binary_Tree_Level_Order_Traversal;
 import commons.TreeNode;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._102_Binary_Tree_Level_Order_Traversal.Solution;
 
 import java.util.List;
 
