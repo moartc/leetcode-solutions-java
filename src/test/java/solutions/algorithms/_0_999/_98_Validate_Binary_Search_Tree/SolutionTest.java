@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._98_Validate_Binary_Search_Tree;
 
 import commons.TreeNode;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._98_Validate_Binary_Search_Tree.Solution;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
