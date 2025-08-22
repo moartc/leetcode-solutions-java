@@ -6,8 +6,6 @@ import org.junit.jupiter.api.Test;
 
 class CodecTest {
 
-    private final Codec codec = new Codec();
-
     @Test
     void test1() {
         TreeNode rightNode = new TreeNode(3, new TreeNode(4), new TreeNode(5));
