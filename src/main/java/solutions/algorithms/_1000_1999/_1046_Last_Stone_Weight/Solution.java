@@ -8,7 +8,7 @@ class Solution {
 
     public int lastStoneWeight(int[] stones) {
 
-        PriorityQueue<Integer> queue = new PriorityQueue(Comparator.reverseOrder());
+        PriorityQueue<Integer> queue = new PriorityQueue<>(Comparator.reverseOrder());
 
         for (int stone : stones) {
             queue.add(stone);
