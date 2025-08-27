@@ -6,29 +6,26 @@ import java.util.List;
 class Solution {
     public List<List<Integer>> subsets(int[] nums) {
 
-        int size = (int) Math.pow(2, nums.length);
-        List<List<Integer>> resultList = new ArrayList<>(size);
-        resultList.add(List.of());
+        List<List<Integer>> result = new ArrayList<>();
+        // handle empty here
+        result.add(new ArrayList());
 
-        for (int elemNum = 1; elemNum <= nums.length; elemNum++) {
-            for (int index = 0; index < nums.length - elemNum + 1; index++) {
-                List<Integer> list = new ArrayList<>();
-                list.add(nums[index]);
-                add(list, index, resultList, elemNum, nums);
-            }
+        for (int i = 0; i < nums.length; i++) {
+            createSubset(i, nums, new ArrayList<>(), result);
         }
-        return resultList;
+
+        return result;
     }
 
-    private void add(List<Integer> currentList, int index, List<List<Integer>> resultList, int elemNum, int[] nums) {
-        if (currentList.size() == elemNum) {
-            resultList.add(currentList);
-        } else {
-            for (int i = index + 1; i < nums.length; i++) {
-                List<Integer> newList = new ArrayList<>(currentList);
-                newList.add(nums[i]);
-                add(newList, i, resultList, elemNum, nums);
-            }
+    void createSubset(int currentIndex, int[] nums, List<Integer> currentList, List<List<Integer>> result) {
+        int currentValue = nums[currentIndex];
+        // create a copy
+        var newList = new ArrayList<>(currentList);
+        newList.add(currentValue);
+        result.add(newList);
+
+        for (int i = currentIndex + 1; i < nums.length; i++) {
+            createSubset(i, nums, newList, result);
         }
     }
 }
