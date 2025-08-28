@@ -41,8 +41,7 @@ class SolutionTest {
     void combinationSumTest4() {
         int[] candidates = new int[]{7, 6, 3, 2};
         int target = 7;
-        List<List<Integer>> expected = List.of(List.of(2, 2, 3), List.of(7));
         List<List<Integer>> actual = solution.combinationSum(candidates, target);
-        Assertions.assertThat(actual).isEqualTo(expected);
+        Assertions.assertThat(actual).containsExactlyInAnyOrder(List.of(3, 2, 2), List.of(7));
     }
 }
