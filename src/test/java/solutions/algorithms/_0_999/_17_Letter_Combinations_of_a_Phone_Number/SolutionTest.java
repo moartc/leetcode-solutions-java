@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._17_Letter_Combinations_of_a_Phone_Number;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._17_Letter_Combinations_of_a_Phone_Number.Solution;
 
 import java.util.List;
 
