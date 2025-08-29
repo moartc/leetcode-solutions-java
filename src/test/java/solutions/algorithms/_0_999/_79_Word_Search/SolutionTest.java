@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._79_Word_Search;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._79_Word_Search.Solution;
 
 class SolutionTest {
 
