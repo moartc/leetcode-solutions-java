@@ -21,7 +21,7 @@ class SolutionTest {
                 List.of(3, 1, 2),
                 List.of(3, 2, 1)
         );
-        assertThat(solution.permute(nums)).hasSameElementsAs(expected);
+        assertThat(solution.permute(nums)).containsExactlyInAnyOrderElementsOf(expected);
     }
 
     @Test
@@ -31,7 +31,7 @@ class SolutionTest {
                 List.of(0, 1),
                 List.of(1, 0)
         );
-        assertThat(solution.permute(nums)).hasSameElementsAs(expected);
+        assertThat(solution.permute(nums)).containsExactlyInAnyOrderElementsOf(expected);
     }
 
     @Test
@@ -40,7 +40,7 @@ class SolutionTest {
         List<List<Integer>> expected = List.of(
                 List.of(1)
         );
-        assertThat(solution.permute(nums)).hasSameElementsAs(expected);
+        assertThat(solution.permute(nums)).containsExactlyInAnyOrderElementsOf(expected);
     }
 
     @Test
@@ -72,6 +72,6 @@ class SolutionTest {
                 List.of(1, 4, 2, 3),
                 List.of(4, 1, 2, 3)
         );
-        assertThat(solution.permute(nums)).hasSameElementsAs(expected);
+        assertThat(solution.permute(nums)).containsExactlyInAnyOrderElementsOf(expected);
     }
 }
