@@ -3,17 +3,27 @@ package solutions.algorithms._0_999._53_Maximum_Subarray;
 class Solution {
     public int maxSubArray(int[] nums) {
 
-        int max = nums[0];
-        int sum = nums[0];
-        for (int i = 1; i < nums.length; i++) {
-            sum += nums[i];
-            if (sum < nums[i]) {
-                sum = nums[i];
-            }
-            if (sum > max) {
-                max = sum;
-            }
+
+        if (nums.length == 1) {
+            return nums[0];
         }
-        return max;
+        int i = 1;
+        int currentSum = nums[0];
+        int bestFound = currentSum;
+        while (i < nums.length) {
+            int iV = nums[i];
+            if (iV > currentSum + iV) {
+                // add a single value
+                currentSum = iV;
+            } else {
+                // increase the current sum
+                currentSum += iV;
+            }
+            if (bestFound < currentSum) {
+                bestFound = currentSum;
+            }
+            i++;
+        }
+        return bestFound;
     }
 }
