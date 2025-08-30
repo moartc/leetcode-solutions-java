@@ -1,25 +1,31 @@
 package solutions.algorithms._0_999._55_Jump_Game;
 
 class Solution {
+
+    /*
+    I can start from the first one, track the current "reach" and update it while visiting the next indices
+     */
+
     public boolean canJump(int[] nums) {
-        int l = nums.length;
-        int jump = nums[0];
-        if (l == 1) {
+
+        if (nums.length == 1) {
             return true;
-        } else if (jump == 0) {
-            return false;
-        } else {
-            for (int i = 1; i < l; i++) {
-                jump--;
-                if (i == l - 1) {
-                    return true;
-                } else if (nums[i] > jump) {
-                    jump = nums[i];
-                } else if (jump == 0) {
-                    return false;
-                }
-            }
-            return false;
         }
+        int reach = nums[0];
+        for (int i = 1; i < nums.length; i++) {
+            if (reach == 0) {
+                // I can't get to this point
+                return false;
+            }
+            reach--;
+            if (nums[i] > reach) {
+                reach = nums[i];
+            }
+            if (i == nums.length - 1) {
+                return true;
+            }
+        }
+        return false;
     }
+
 }
