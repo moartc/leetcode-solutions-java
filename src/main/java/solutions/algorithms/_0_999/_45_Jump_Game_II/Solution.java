@@ -1,36 +1,42 @@
 package solutions.algorithms._0_999._45_Jump_Game_II;
 
 class Solution {
+
+    /*
+    notes:
+    I could only find a DP solution which is (On^2)
+
+    I saw a small hint and I will try a different solution by keeping track of the maximum reach
+     */
+
     public int jump(int[] nums) {
 
         if (nums.length == 1) {
             return 0;
         }
-        int i = 0;
-        int jumps = 0;
-        while (true) {
-            if (i + nums[i] >= nums.length - 1) {
-                return jumps + 1;
-            }
-            i += getBest(nums, i, nums[i]);
-            jumps++;
-        }
-    }
 
-    int getBest(int[] nums, int start, int jump) {
-        int max = Integer.MIN_VALUE;
-        int dec = 0;
-        int toReturn = -1;
-        for (int i = jump; i > 0; i--) {
-            if (i < nums.length) {
-                int val = nums[start + i] - dec;
-                dec++;
-                if (val >= max) {
-                    max = val;
-                    toReturn = i;
-                }
+        int currentJumps = 1;
+        int currentReach = nums[0];
+        int nextMaxReach = Integer.MIN_VALUE;
+        for (int i = 1; i < nums.length; i++) {
+
+            if (i == nums.length - 1) {
+                return currentJumps;
+            }
+            currentReach--;
+
+            int length = nums[i];
+            if (length > nextMaxReach) {
+                nextMaxReach = length;
+            }
+            if (currentReach == 0) {
+                currentJumps++;
+                currentReach = nextMaxReach;
+                nextMaxReach = Integer.MIN_VALUE;
+            } else {
+                nextMaxReach--;
             }
         }
-        return toReturn;
+        return currentJumps;
     }
 }

@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._45_Jump_Game_II;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._45_Jump_Game_II.Solution;
 
 class SolutionTest {
 
