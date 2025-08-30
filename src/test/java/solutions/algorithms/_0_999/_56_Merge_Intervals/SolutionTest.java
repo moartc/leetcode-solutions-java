@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._56_Merge_Intervals;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._56_Merge_Intervals.Solution;
 
 import java.util.Arrays;
 
