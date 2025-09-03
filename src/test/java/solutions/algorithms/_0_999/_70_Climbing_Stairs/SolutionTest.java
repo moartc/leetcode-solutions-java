@@ -3,7 +3,6 @@ package solutions.algorithms._0_999._70_Climbing_Stairs;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._70_Climbing_Stairs.Solution;
 
 class SolutionTest {
 
