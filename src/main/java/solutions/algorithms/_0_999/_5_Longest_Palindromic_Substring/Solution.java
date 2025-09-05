@@ -1,46 +1,61 @@
 package solutions.algorithms._0_999._5_Longest_Palindromic_Substring;
 
+
 class Solution {
+
+    /*
+    I can go outside
+    1. starting from a single character
+    2. starting from 2 the same character
+    */
+
     public String longestPalindrome(String s) {
-        char[] chars = s.toCharArray();
-        int longestFound = Integer.MIN_VALUE;
-        int left = -1;
-        for (int i = 0; i < chars.length; i++) {
-            int[] longestFromIndex = findLongestFromIndex(i, chars);
-            if (longestFromIndex[0] > longestFound) {
-                longestFound = longestFromIndex[0];
-                left = longestFromIndex[1];
+
+        int maxSize = -1;
+        String bestFound = "";
+        char[] charArray = s.toCharArray();
+
+        for (int i = 0; i < charArray.length; i++) {
+            int answer = isPalindrome(i, i, s);
+            if (answer != -1) {
+                int finalSize1 = 1 + (2 * answer);
+                if (finalSize1 > maxSize) {
+                    maxSize = finalSize1;
+                    bestFound = s.substring(i - answer, i + answer + 1);
+                }
+            }
+            if (i < charArray.length - 1) {
+                // second check for 2 chars
+                int answer2 = isPalindrome(i, i + 1, s);
+                if (answer2 != -1) {
+                    int finalSize2 = 2 + (2 * answer2);
+                    if (finalSize2 > maxSize) {
+                        maxSize = finalSize2;
+                        bestFound = s.substring(i - answer2, i + 1 + answer2 + 1);
+                    }
+                }
             }
         }
-        return s.substring(left, left + longestFound);
+        return bestFound;
     }
 
-    int[] findLongestFromIndex(int index, char[] chars) {
-        int length = 1;
-        int left = index;
-        int right = index;
+    private int isPalindrome(int i, int j, String s) {
 
-        // extend starting index with the same characters
-        while (left > 0 || right < chars.length - 1) {
-            if (left > 0 && chars[left - 1] == chars[index]) {
-                left--;
-                length++;
-            } else if (right < chars.length - 1 && chars[right + 1] == chars[index]) {
-                right++;
-                length++;
-            } else {
-                break;
+        int moves = -1;
+        while (i >= 0 && j < s.length()) {
+            if (i == j) {
+                // I might start from the same char - do nothing
             }
-        }
-        while (left > 0 && right < chars.length - 1) {
-            if (chars[right + 1] == chars[left - 1]) {
-                length += 2;
-                left--;
-                right++;
-            } else {
-                return new int[]{length, left};
+            char sc = s.charAt(i);
+            char ec = s.charAt(j);
+            if (sc != ec) {
+                return moves;
             }
+            moves++;
+            i--;
+            j++;
         }
-        return new int[]{length, left};
+        return moves;
     }
+
 }
