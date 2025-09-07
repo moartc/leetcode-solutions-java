@@ -80,4 +80,17 @@ class SolutionTest {
         String s = "2101";
         assertThat(solution.numDecodings(s)).isEqualTo(1);
     }
+
+    @Test
+    void numDecodingsTest13() {
+        String s = "27";
+        assertThat(solution.numDecodings(s)).isEqualTo(1);
+    }
+
+    @Test
+    void numDecodingsTest14() {
+        String s = "1201234";
+        assertThat(solution.numDecodings(s)).isEqualTo(3);
+    }
+
 }
