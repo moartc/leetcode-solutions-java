@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._300_Longest_Increasing_Subsequence;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._300_Longest_Increasing_Subsequence.Solution;
 
 class SolutionTest {
 
