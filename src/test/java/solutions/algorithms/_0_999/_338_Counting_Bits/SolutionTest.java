@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._338_Counting_Bits;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._338_Counting_Bits.Solution;
 
 class SolutionTest {
 
