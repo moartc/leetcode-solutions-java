@@ -29,21 +29,28 @@ class SolutionTest {
 
     @Test
     void reverseTest5() {
-        Assertions.assertEquals(0, solution.reverse(1534236469));
-    }
-
-    @Test
-    void reverseTest6() {
         Assertions.assertEquals(0, solution.reverse(1563847412));
     }
 
     @Test
-    void reverseTest7() {
+    void reverseTest6() {
         Assertions.assertEquals(-2143847412, solution.reverse(-2147483412));
     }
 
     @Test
-    void reverseTest8() {
+    void reverseTest7() {
         Assertions.assertEquals(214748365, solution.reverse(563847412));
     }
+
+    @Test
+    void reverseTest8() {
+        Assertions.assertEquals(0, solution.reverse(-2147483648));
+    }
+
+    @Test
+    void reverseTest9() {
+        Assertions.assertEquals(2147483641, solution.reverse(1463847412));
+    }
+
+
 }
