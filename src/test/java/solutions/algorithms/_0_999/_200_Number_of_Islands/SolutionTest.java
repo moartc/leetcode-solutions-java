@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._200_Number_of_Islands;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._200_Number_of_Islands.Solution;
 
 class SolutionTest {
 
