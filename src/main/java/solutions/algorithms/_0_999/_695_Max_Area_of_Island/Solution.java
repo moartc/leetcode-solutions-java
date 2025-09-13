@@ -1,15 +1,20 @@
 package solutions.algorithms._0_999._695_Max_Area_of_Island;
 
 class Solution {
+
+    /*
+    It's a similar problem to "200. Number of Islands"
+    beats 100%
+     */
     public int maxAreaOfIsland(int[][] grid) {
 
         int max = 0;
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid[0].length; y++) {
-                if(grid[x][y] == 1) {
-                    int area = countArea(grid, x, y);
-                    if(area > max) {
-                        max = area;
+        for (int y = 0; y < grid.length; y++) {
+            for (int x = 0; x < grid[0].length; x++) {
+                if (grid[y][x] == 1) {
+                    int counter = countArea(y, x, grid);
+                    if (counter > max) {
+                        max = counter;
                     }
                 }
             }
@@ -17,26 +22,24 @@ class Solution {
         return max;
     }
 
-    int countArea(int[][] grid, int sc, int sr) {
-        int ctr = 0;
-        if (grid[sc][sr] == 1) {
-            ctr++;
-            grid[sc][sr] = -1;
-            if (sc > 0) {
-                ctr += countArea(grid, sc - 1, sr);
-            }
-            if (sr > 0) {
-                ctr += countArea(grid, sc, sr - 1);
-            }
-            if (sc < grid.length - 1) {
-                ctr += countArea(grid, sc + 1, sr);
-            }
-            if (sr < grid[0].length - 1) {
-                ctr += countArea(grid, sc, sr + 1);
-            }
-            return ctr;
-        } else {
-            return 0;
+    int countArea(int y, int x, int[][] grid) {
+        int counter = 1;
+        // mark as visited
+        grid[y][x] = -1;
+        if (y - 1 >= 0 && grid[y - 1][x] == 1) {
+            counter += countArea(y - 1, x, grid);
         }
+        if (y + 1 < grid.length && grid[y + 1][x] == 1) {
+            counter += countArea(y + 1, x, grid);
+        }
+
+        if (x - 1 >= 0 && grid[y][x - 1] == 1) {
+            counter += countArea(y, x - 1, grid);
+        }
+
+        if (x + 1 < grid[0].length && grid[y][x + 1] == 1) {
+            counter += countArea(y, x + 1, grid);
+        }
+        return counter;
     }
 }

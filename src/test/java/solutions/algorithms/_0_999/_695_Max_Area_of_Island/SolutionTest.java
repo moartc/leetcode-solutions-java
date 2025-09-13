@@ -1,7 +1,6 @@
 package solutions.algorithms._0_999._695_Max_Area_of_Island;
 
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._695_Max_Area_of_Island.Solution;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
