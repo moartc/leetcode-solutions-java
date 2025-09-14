@@ -1,7 +1,6 @@
 package solutions.algorithms._0_999._994_Rotting_Oranges;
 
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._994_Rotting_Oranges.Solution;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,6 +29,12 @@ class SolutionTest {
     @Test
     void orangesRottingTest4() {
         int[][] grid = {{2, 1, 1}, {1, 1, 1}, {0, 1, 2}};
+        assertEquals(2, solution.orangesRotting(grid));
+    }
+
+    @Test
+    void orangesRottingTest5() {
+        int[][] grid = {{0}};
         assertEquals(2, solution.orangesRotting(grid));
     }
 }
