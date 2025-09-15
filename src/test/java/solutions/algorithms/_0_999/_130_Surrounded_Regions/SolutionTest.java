@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._130_Surrounded_Regions;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._130_Surrounded_Regions.Solution;
 
 class SolutionTest {
 
