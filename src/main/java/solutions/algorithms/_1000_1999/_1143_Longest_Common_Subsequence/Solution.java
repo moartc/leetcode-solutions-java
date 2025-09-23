@@ -2,30 +2,74 @@ package solutions.algorithms._1000_1999._1143_Longest_Common_Subsequence;
 
 class Solution {
 
+    /*
+    Apparently I should use dp. So I could build an array like this:
+
+      a b c d e
+    a x
+    c     x
+    e         x
+
+    another case:
+    t1: a b g c d
+    t2  a b c d e f g
+    answer: abcd
+
+      a b c d e f g a
+    a x             x
+    b   x
+    g             x
+    c     x
+    d       x
+
+    Now I have to find all 'x' where the next one has 'y' and 'x' (positions) greater than the previous one
+
+    I can then iterate again with the array of ints and a counter.
+    I check the boolean value for the current cell,
+    - if it's false:
+    I check the left counter (in the second array) and the top and take the higher one,
+    - if it's true:
+    I set the left top value increased by 1,
+
+    example for the case above:
+      a b c d e f g a
+    a 1 1 1 1 1 1 1 1
+    b 1 2 2 2 2 2 2 2
+    g 1 2 2 2 2 2 3 3
+    c 1 2 3 3 3 3 3 3
+    d 1 2 3 4 4 4 4 4
+
+
+    update: instead of 2 iterations I moved counterArr to the main loop
+     */
+
     public int longestCommonSubsequence(String text1, String text2) {
 
-        char[] t1 = text1.toCharArray();
-        char[] t2 = text2.toCharArray();
-        int[][] arr = new int[t1.length][t2.length];
+        int[][] counterArr = new int[text2.length()][text1.length()];
 
-        arr[0][0] = t1[0] == t2[0] ? 1 : 0;
-        for (int i = 1; i < t2.length; i++) {
-            arr[0][i] = arr[0][i - 1] > 0 ? arr[0][i - 1] : t1[0] == t2[i] ? 1 : 0;
-        }
-        for (int i = 1; i < t1.length; i++) {
-            arr[i][0] = arr[i - 1][0] > 0 ? arr[i - 1][0] : t1[i] == t2[0] ? 1 : 0;
-        }
-
-        for (int i = 1; i < t1.length; i++) {
-            for (int j = 1; j < t2.length; j++) {
-                boolean eq = t1[i] == t2[j];
-                if (eq && arr[i][j - 1] == arr[i - 1][j - 1]) {
-                    arr[i][j] = arr[i][j - 1] + 1;
+        for (int y = 0; y < text2.length(); y++) {
+            char c1 = text2.charAt(y);
+            for (int x = 0; x < text1.length(); x++) {
+                char c2 = text1.charAt(x);
+                if (c1 == c2) {
+                    if (y == 0 || x == 0) {
+                        counterArr[y][x] = 1;
+                    } else {
+                        counterArr[y][x] = counterArr[y - 1][x - 1] + 1;
+                    }
                 } else {
-                    arr[i][j] = Integer.max(arr[i][j - 1], arr[i - 1][j]);
+                    if (y == 0 && x == 0) {
+                        counterArr[y][x] = 0;
+                    } else if (y == 0) {
+                        counterArr[y][x] = counterArr[y][x - 1];
+                    } else if (x == 0) {
+                        counterArr[y][x] = counterArr[y - 1][x];
+                    } else {
+                        counterArr[y][x] = Math.max(counterArr[y - 1][x], counterArr[y][x - 1]);
+                    }
                 }
             }
         }
-        return arr[t1.length - 1][t2.length - 1];
+        return counterArr[text2.length() - 1][text1.length() - 1];
     }
 }
