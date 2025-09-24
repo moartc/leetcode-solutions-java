@@ -1,19 +1,36 @@
 package solutions.algorithms._0_999._202_Happy_Number;
 
+import java.util.HashSet;
+import java.util.Set;
+
 class Solution {
     public boolean isHappy(int n) {
 
+        Set<Integer> results = new HashSet<>();
+        int counterOfRepeats = 0;
+        int newN = n;
         while (true) {
-            int result = 0;
-            for (char c : String.valueOf(n).toCharArray()) {
-                result += (c - 48) * (c - 48);
+            int newNumber = 0;
+            while (newN != 0) {
+                int t = newN % 10;
+                newN = newN / 10;
+                newNumber += t * t;
             }
-            if (result == 1) {
+            newN = newNumber;
+
+            if (newN == 1) {
                 return true;
-            } else if (result < 7) {
-                return false;
             } else {
-                n = result;
+                if (results.contains(newN)) {
+                    // counter of consecutive repeats
+                    counterOfRepeats++;
+                    if (counterOfRepeats > 1) {
+                        return false;
+                    }
+                } else {
+                    results.add(newN);
+                    counterOfRepeats = 0;
+                }
             }
         }
     }
