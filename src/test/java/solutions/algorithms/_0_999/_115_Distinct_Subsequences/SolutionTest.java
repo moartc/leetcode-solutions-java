@@ -22,4 +22,20 @@ class SolutionTest {
         int answer = solution.numDistinct(s, t);
         Assertions.assertThat(answer).isEqualTo(5);
     }
+
+    @Test
+    void researchTest() {
+        String s = "abcabc";
+        String t = "abc";
+        int answer = solution.numDistinct(s, t);
+        Assertions.assertThat(answer).isEqualTo(4);
+    }
+
+    @Test
+    void numDistinct3() {
+        String s = "ddd";
+        String t = "dd";
+        int answer = solution.numDistinct(s, t);
+        Assertions.assertThat(answer).isEqualTo(3);
+    }
 }
