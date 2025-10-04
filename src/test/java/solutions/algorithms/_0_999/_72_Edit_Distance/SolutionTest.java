@@ -124,7 +124,7 @@ class SolutionTest {
         String word1 = "xx";
         String word2 = "xxxxx";
         int actual = solution.minDistance(word1, word2);
-        Assertions.assertThat(actual).isEqualTo(2);
+        Assertions.assertThat(actual).isEqualTo(3);
     }
 
 }
