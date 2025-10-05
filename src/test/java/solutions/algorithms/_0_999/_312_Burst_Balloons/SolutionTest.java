@@ -20,4 +20,11 @@ class SolutionTest {
         int answer = solution.maxCoins(nums);
         Assertions.assertThat(answer).isEqualTo(10);
     }
+
+    @Test
+    void maxCoins3() {
+        int[] nums = new int[]{3, 1, 5, 8, 2, 6, 4};
+        int answer = solution.maxCoins(nums);
+        Assertions.assertThat(answer).isEqualTo(547);
+    }
 }
