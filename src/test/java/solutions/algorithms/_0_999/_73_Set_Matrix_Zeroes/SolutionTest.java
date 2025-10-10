@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._73_Set_Matrix_Zeroes;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._73_Set_Matrix_Zeroes.Solution;
 
 class SolutionTest {
 
@@ -25,6 +24,26 @@ class SolutionTest {
         solution.setZeroes(matrix);
 
         int[][] expectedMatrix = new int[][]{{0, 0, 0, 0}, {0, 4, 5, 0}, {0, 3, 1, 0}};
+        Assertions.assertThat(matrix).isEqualTo(expectedMatrix);
+    }
+
+    @Test
+    void setZeroesTest3() {
+        int[][] matrix = new int[][]{{1, 2, 3, 4}, {5, 0, 7, 8}, {0, 10, 11, 12}, {13, 14, 15, 0}};
+
+        solution.setZeroes(matrix);
+
+        int[][] expectedMatrix = new int[][]{{0, 0, 3, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}};
+        Assertions.assertThat(matrix).isEqualTo(expectedMatrix);
+    }
+
+    @Test
+    void setZeroesTest4() {
+        int[][] matrix = new int[][]{{1, 0, 3}};
+
+        solution.setZeroes(matrix);
+
+        int[][] expectedMatrix = new int[][]{{0, 0, 0}};
         Assertions.assertThat(matrix).isEqualTo(expectedMatrix);
     }
 }
