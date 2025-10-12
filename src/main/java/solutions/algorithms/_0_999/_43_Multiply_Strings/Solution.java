@@ -3,84 +3,93 @@ package solutions.algorithms._0_999._43_Multiply_Strings;
 import java.util.ArrayList;
 import java.util.List;
 
-// todo to improve
-//  Runtime 10ms        Beats 23.97%
-//  Memory  45.25MB     Beats 5.49%
 class Solution {
+
+    /*
+    I could iterate in reverse order through both strings
+    like in regular school multiplication (example below)
+    multiply 2 integers (I can get them from characters) and carry over the rest forward (oor rather backward)
+    and if anything is left in one of the strings, I can just add it
+
+        123
+        456
+    -------
+        738
+       615
+      492
+   --------
+      56088
+     */
     public String multiply(String num1, String num2) {
 
+        char[] numArr1 = num1.toCharArray();
+        char[] numArr2 = num2.toCharArray();
 
-        List<List<Integer>> listList = new ArrayList<>(num1.length() * num2.length());
-        String longer;
-        String shorter;
-        if (num1.length() >= num2.length()) {
-            longer = num1;
-            shorter = num2;
-        } else {
-            longer = num2;
-            shorter = num1;
+        List<List<Integer>> intsToAdd = new ArrayList<>();
+        for (int j = num2.length() - 1; j >= 0; j--) {
+            int reminder = 0;
+            List<Integer> newList = new ArrayList<>();
+            for (int i = numArr1.length - 1; i >= 0; i--) {
+                char c1 = numArr1[i];
+                char c2 = numArr2[j];
+                int i1 = c1 - 48;
+                int i2 = c2 - 48;
+
+                int sum = (i1 * i2) + reminder;
+                newList.add(sum % 10);
+                reminder = sum / 10;
+            }
+            if(reminder != 0) {
+                newList.add(reminder);
+            }
+            intsToAdd.add(newList);
         }
 
-        if(num1.equals("0") || num2.equals("0")) {
-            return "0";
+        // here I have to add them including offset - f.ex index 2 for list 0 == index 1 for list 1 and index 0 for list 2
+        // it seems to be listIndex - current index from list 0
+
+        int currentIndex = 0;
+        List<Integer> listOfDigits = new ArrayList<>();
+        boolean addedSomething = true;
+        int remainder = 0;
+        while(addedSomething) {
+            addedSomething = false;
+            int sum = 0;
+            for (int listIdx = 0; listIdx < intsToAdd.size(); listIdx++) {
+
+                int idxToCheck = currentIndex - listIdx;
+                if(idxToCheck >=0 && idxToCheck < intsToAdd.get(listIdx).size()) {
+                    addedSomething = true;
+                    sum += intsToAdd.get(listIdx).get(idxToCheck);
+                }
+            }
+            int totalSum = sum + remainder;
+            int toSave = totalSum % 10;
+            listOfDigits.add(toSave)  ;
+            remainder = totalSum / 10;
+            currentIndex++;
         }
-
-        int ctr = 0;
-        int rest = 0;
-        for (int i = shorter.length() - 1; i >= 0; i--) {
-            int f = shorter.charAt(i) - 48;
-            listList.add(new ArrayList<>());
-
-            // add zeros
-            for (int k = 0; k < ctr; k++) {
-                listList.get(ctr).add(0);
-            }
-
-            for (int j = longer.length() - 1; j >= 0; j--) {
-                int s = longer.charAt(j) - 48;
-
-                int mult = f * s;
-                int resWithRest = mult + rest;
-                rest = resWithRest / 10;
-                int val = resWithRest % 10;
-                listList.get(ctr).add(val);
-            }
-            if(rest != 0) {
-                listList.get(ctr).add(rest);
-                rest = 0;
-            }
-            ctr++;
+        if(remainder > 0) {
+            listOfDigits.add(remainder);
         }
-
-        int val = 0;
-        int rest2 = 0;
 
 
         StringBuilder sb = new StringBuilder();
-
-        for (int i = 0; i < listList.get(listList.size() - 1).size() ; i++) { // iterate max array elements
-
-            for (List<Integer> integers : listList) {
-                if (integers.size() - 1 >= i)
-                    val += integers.get(i);
+        boolean wasNoZero = false;
+        for (int i = listOfDigits.size() - 1; i >= 0; i--) {
+            int digit = listOfDigits.get(i);
+            if(digit == 0) {
+                 if(wasNoZero) {
+                     sb.append(digit);
+                 }
+            } else {
+                wasNoZero = true;
+                sb.append(digit);
             }
-
-            int valWithRest = val + rest2;
-            int toPrint = (valWithRest) % 10;
-            rest2 = valWithRest / 10;
-            val = 0;
-            sb.append(toPrint);
-
         }
-        if (rest2 > 0) {
-            sb.append(rest2);
+        if(sb.isEmpty()) {
+            return "0";
         }
-        var str  = sb.reverse().toString();
-        if(str.charAt(0) == '0') {
-            return str.substring(1,str.length());
-        } else  {
-            return str;
-        }
-
+        return sb.toString();
     }
 }
