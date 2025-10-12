@@ -22,6 +22,9 @@ class Solution {
      */
     public String multiply(String num1, String num2) {
 
+        if(num1.equals("0") || num2.equals("0")) {
+            return "0";
+        }
         char[] numArr1 = num1.toCharArray();
         char[] numArr2 = num2.toCharArray();
 
@@ -47,49 +50,36 @@ class Solution {
 
         // here I have to add them including offset - f.ex index 2 for list 0 == index 1 for list 1 and index 0 for list 2
         // it seems to be listIndex - current index from list 0
-
         int currentIndex = 0;
-        List<Integer> listOfDigits = new ArrayList<>();
-        boolean addedSomething = true;
+        boolean added = true;
         int remainder = 0;
-        while(addedSomething) {
-            addedSomething = false;
+        StringBuilder sb2 = new StringBuilder();
+        while(added) {
+            added = false;
             int sum = 0;
             for (int listIdx = 0; listIdx < intsToAdd.size(); listIdx++) {
-
                 int idxToCheck = currentIndex - listIdx;
                 if(idxToCheck >=0 && idxToCheck < intsToAdd.get(listIdx).size()) {
-                    addedSomething = true;
+                    added = true;
                     sum += intsToAdd.get(listIdx).get(idxToCheck);
                 }
             }
-            int totalSum = sum + remainder;
-            int toSave = totalSum % 10;
-            listOfDigits.add(toSave)  ;
-            remainder = totalSum / 10;
-            currentIndex++;
-        }
-        if(remainder > 0) {
-            listOfDigits.add(remainder);
-        }
-
-
-        StringBuilder sb = new StringBuilder();
-        boolean wasNoZero = false;
-        for (int i = listOfDigits.size() - 1; i >= 0; i--) {
-            int digit = listOfDigits.get(i);
-            if(digit == 0) {
-                 if(wasNoZero) {
-                     sb.append(digit);
-                 }
-            } else {
-                wasNoZero = true;
-                sb.append(digit);
+            if(added) {
+                int totalSum = sum + remainder;
+                int toSave = totalSum % 10;
+                sb2.append(toSave);
+                remainder = totalSum / 10;
+                currentIndex++;
             }
         }
-        if(sb.isEmpty()) {
-            return "0";
+        if(remainder > 0) {
+            sb2.append(remainder);
         }
-        return sb.toString();
+
+        if(sb2.isEmpty()) {
+            return "0";
+        } else {
+            return sb2.reverse().toString();
+        }
     }
 }
