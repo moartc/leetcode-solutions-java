@@ -1,8 +1,5 @@
 package solutions.algorithms._0_999._43_Multiply_Strings;
 
-import java.util.ArrayList;
-import java.util.List;
-
 class Solution {
 
     /*
@@ -19,67 +16,50 @@ class Solution {
       492
    --------
       56088
+
+
+    update:
+    Instead of storing a single row I can add them in the first loop.
+    1: (0,0)
+    2: (0,1) + (1,0)
+    3: (0,2) + (1,1) + (2,0) , so basically i + j, reminder goes to the next index
+
      */
     public String multiply(String num1, String num2) {
 
-        if(num1.equals("0") || num2.equals("0")) {
+        if (num1.equals("0") || num2.equals("0")) {
             return "0";
         }
         char[] numArr1 = num1.toCharArray();
         char[] numArr2 = num2.toCharArray();
-
-        List<List<Integer>> intsToAdd = new ArrayList<>();
-        for (int j = num2.length() - 1; j >= 0; j--) {
-            int reminder = 0;
-            List<Integer> newList = new ArrayList<>();
+        // the product of two numbers with lengths m and n has at most m + n digits
+        int[] res = new int[num1.length() + num2.length()];
+        for (int j = numArr2.length - 1; j >= 0; j--) {
             for (int i = numArr1.length - 1; i >= 0; i--) {
                 char c1 = numArr1[i];
                 char c2 = numArr2[j];
                 int i1 = c1 - 48;
                 int i2 = c2 - 48;
-
-                int sum = (i1 * i2) + reminder;
-                newList.add(sum % 10);
-                reminder = sum / 10;
+                // what I already have + current result of multiplication
+                int currentSum = res[i + j + 1] + (i1 * i2);
+                // for max i and j, to add it at the end of the array I have to add 1
+                res[i + j + 1] = currentSum % 10;
+                res[i + j] += currentSum / 10;
             }
-            if(reminder != 0) {
-                newList.add(reminder);
-            }
-            intsToAdd.add(newList);
         }
 
-        // here I have to add them including offset - f.ex index 2 for list 0 == index 1 for list 1 and index 0 for list 2
-        // it seems to be listIndex - current index from list 0
-        int currentIndex = 0;
-        boolean added = true;
-        int remainder = 0;
-        StringBuilder sb2 = new StringBuilder();
-        while(added) {
-            added = false;
-            int sum = 0;
-            for (int listIdx = 0; listIdx < intsToAdd.size(); listIdx++) {
-                int idxToCheck = currentIndex - listIdx;
-                if(idxToCheck >=0 && idxToCheck < intsToAdd.get(listIdx).size()) {
-                    added = true;
-                    sum += intsToAdd.get(listIdx).get(idxToCheck);
+        StringBuilder sb = new StringBuilder();
+        boolean wasAlreadyNonZero = false;
+        for (int v : res) {
+            if (v == 0) {
+                if (wasAlreadyNonZero) { // if false, it means it's the leading zero - skip it
+                    sb.append(v);
                 }
-            }
-            if(added) {
-                int totalSum = sum + remainder;
-                int toSave = totalSum % 10;
-                sb2.append(toSave);
-                remainder = totalSum / 10;
-                currentIndex++;
+            } else {
+                sb.append(v);
+                wasAlreadyNonZero = true;
             }
         }
-        if(remainder > 0) {
-            sb2.append(remainder);
-        }
-
-        if(sb2.isEmpty()) {
-            return "0";
-        } else {
-            return sb2.reverse().toString();
-        }
+        return sb.toString();
     }
 }
