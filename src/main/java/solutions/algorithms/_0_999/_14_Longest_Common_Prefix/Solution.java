@@ -3,21 +3,18 @@ package solutions.algorithms._0_999._14_Longest_Common_Prefix;
 class Solution {
     public String longestCommonPrefix(String[] strs) {
 
-        String maxCommonPrefix = strs[0];
-        for (int i = 1; i < strs.length; i++) {
-            String toCheck = strs[i];
-            if (toCheck.length() < maxCommonPrefix.length()) {
-                String tmp = maxCommonPrefix;
-                maxCommonPrefix = toCheck;
-                toCheck = tmp;
-            }
-            for (int charIndex = 0; charIndex < toCheck.length(); charIndex++) {
-                if (charIndex < maxCommonPrefix.length() && toCheck.charAt(charIndex) != maxCommonPrefix.charAt(charIndex)) {
-                    maxCommonPrefix = maxCommonPrefix.substring(0, charIndex);
-                    break;
+        for (int idx = 0; idx < strs[0].length(); idx++) {
+            char firstChar = strs[0].charAt(idx);
+            for (int i = 1; i < strs.length; i++) {
+                if (idx < strs[i].length()) {
+                    if (strs[i].charAt(idx) != firstChar) {
+                        return strs[0].substring(0, idx);
+                    }
+                } else {
+                    return strs[0].substring(0, idx);
                 }
             }
         }
-        return maxCommonPrefix;
+        return strs[0];
     }
 }

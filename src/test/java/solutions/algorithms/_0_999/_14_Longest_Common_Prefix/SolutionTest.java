@@ -3,7 +3,6 @@ package solutions.algorithms._0_999._14_Longest_Common_Prefix;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._14_Longest_Common_Prefix.Solution;
 
 class SolutionTest {
 
