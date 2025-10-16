@@ -2,11 +2,10 @@ package solutions.algorithms._0_999._27_Remove_Element;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._27_Remove_Element.Solution;
 
 import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SolutionTest {
 
@@ -67,7 +66,16 @@ class SolutionTest {
 
         int[] nums = new int[]{3, 3};
         int val = 5;
-        int[] expectedNums = new int[]{3,3};
+        int[] expectedNums = new int[]{3, 3};
+        checkAssert(expectedNums, nums, val);
+    }
+
+    @Test
+    void removeElementTest7() {
+
+        int[] nums = new int[]{3, 3};
+        int val = 3;
+        int[] expectedNums = new int[]{};
         checkAssert(expectedNums, nums, val);
     }
 

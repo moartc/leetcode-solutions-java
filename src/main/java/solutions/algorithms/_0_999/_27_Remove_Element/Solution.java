@@ -1,26 +1,36 @@
 package solutions.algorithms._0_999._27_Remove_Element;
 
 class Solution {
+
+    /*
+    I can just iterate through the array and always replace it with the last non val element.
+    I can set the first main pointer at the beginning and the second one at the end.
+    Before swapping elements, I have to check the last element, and if it's equal to val, move the pointer forward (toward
+     the beginning of the array).
+
+     actually the same solution as I had before
+     */
     public int removeElement(int[] nums, int val) {
+
         if (nums.length == 0) {
             return 0;
         }
-        int index1 = 0;
-        int index2 = nums.length - 1;
+        int i = 0;
+        int j = nums.length - 1;
 
-        while (index1 <= index2) {
-            if (nums[index1] != val) {
-                index1++;
+        while (i <= j) {
+            if (nums[i] != val) {
+                i++;
             } else {
-                if (nums[index2] != val) {
-                    int temp = nums[index1];
-                    nums[index1] = nums[index2];
-                    nums[index2] = temp;
+                if (nums[j] != val) {
+                    int temp = nums[i];
+                    nums[i] = nums[j];
+                    nums[j] = temp;
                 } else {
-                    index2--;
+                    j--;
                 }
             }
         }
-        return index1;
+        return i;
     }
 }
