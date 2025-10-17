@@ -1,18 +1,11 @@
 package solutions.algorithms._0_999._169_Majority_Element;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._169_Majority_Element.Solution;
 
 class SolutionTest {
 
-    private Solution solution;
-
-    @BeforeEach
-    void setUp() {
-        solution = new Solution();
-    }
+    private final Solution solution = new Solution();
 
     @Test
     void majorityElementTest1() {
