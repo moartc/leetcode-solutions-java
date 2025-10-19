@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._706_Design_HashMap;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._706_Design_HashMap.MyHashMap;
 
 class MyHashMapTest {
 
@@ -22,6 +21,5 @@ class MyHashMapTest {
         myHashMap.remove(2); // remove the mapping for 2, The map is now [[1,1]]
         var v4 = myHashMap.get(2);    // return -1 (i.e., not found), The map is now [[1,1]]
         Assertions.assertThat(v4).isEqualTo(-1);
-
     }
 }

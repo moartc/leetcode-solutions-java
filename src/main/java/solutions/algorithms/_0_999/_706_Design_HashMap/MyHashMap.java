@@ -1,58 +1,36 @@
 package solutions.algorithms._0_999._706_Design_HashMap;
 
-import java.util.LinkedList;
-import java.util.List;
 
 class MyHashMap {
-
-    private final List<KeyValue>[] arr;
+    /*
+        I can use the index of an array as a key
+        I'm tracking whether the element is present in a separate array - that way I don't have to fill the array
+        with default values.
+     */
+    boolean[] hasValue;
+    int[] arr;
 
     public MyHashMap() {
-        // randomly chosen size
-        arr = new List[1000];
+        int max = (int) (Math.pow(10, 6) + 1);
+        arr = new int[max];
+        hasValue = new boolean[max];
     }
 
     public void put(int key, int value) {
-        int idx = key % 1000;
-        if (arr[idx] == null) {
-            arr[idx] = new LinkedList<>();
-        } else {
-            remove(key);
-        }
-        arr[idx].add(new KeyValue(key, value));
+        hasValue[key] = true;
+        arr[key] = value;
     }
 
     public int get(int key) {
-        int idx = key % 1000;
-        List<KeyValue> list = arr[idx];
-        if (list == null) {
+        if (!hasValue[key]) {
             return -1;
         } else {
-            for (KeyValue keyValue : list) {
-                if (keyValue.key == key) {
-                    return keyValue.value;
-                }
-            }
+            return arr[key];
         }
-        return -1;
     }
 
     public void remove(int key) {
-        int idx = key % 1000;
-        if(arr[idx] != null) {
-            arr[idx].removeIf(k -> k.key == key);
-        }
-    }
-
-    private static class KeyValue {
-
-        private final int key;
-        private final int value;
-
-        public KeyValue(int key, int value) {
-            this.key = key;
-            this.value = value;
-        }
+        hasValue[key] = false;
     }
 }
 
