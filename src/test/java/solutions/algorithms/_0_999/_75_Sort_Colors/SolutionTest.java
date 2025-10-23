@@ -25,4 +25,13 @@ class SolutionTest {
         int[] expected = new int[]{0, 1, 2};
         assertThat(nums).isEqualTo(expected);
     }
+
+    @Test
+    void sortColorsTest3() {
+
+        int[] nums = new int[]{1, 2, 0, 0, 1};
+        solution.sortColors(nums);
+        int[] expected = new int[]{0, 0, 1, 1, 2};
+        assertThat(nums).isEqualTo(expected);
+    }
 }
