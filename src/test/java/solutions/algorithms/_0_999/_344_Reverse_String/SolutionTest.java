@@ -1,7 +1,6 @@
 package solutions.algorithms._0_999._344_Reverse_String;
 
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._344_Reverse_String.Solution;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
