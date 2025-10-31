@@ -4,19 +4,22 @@ class Solution {
     public String mergeAlternately(String word1, String word2) {
 
         StringBuilder sb = new StringBuilder();
-        int idx1 = 0;
-        int idx2 = 0;
-        while(idx1 < word1.length() && idx2 < word2.length()) {
-            sb.append(word1.charAt(idx1));
-            sb.append(word2.charAt(idx2));
-            idx1++;
-            idx2++;
+        int i = 0;
+        int j = 0;
+        while (i < word1.length() && j < word2.length()) {
+            sb.append(word1.charAt(i));
+            sb.append(word2.charAt(j));
+            i++;
+            j++;
         }
-        if(idx1 == word1.length()) {
-            sb.append(word2.substring(idx2));
+
+        if (i < word1.length()) {
+            // still something in word1
+            sb.append(word1, i, word1.length());
         }
-        if(idx2 == word2.length()) {
-            sb.append(word1.substring(idx1));
+        if (j < word2.length()) {
+            // still something in word2
+            sb.append(word2, j, word2.length());
         }
         return sb.toString();
     }
