@@ -2,9 +2,8 @@ package solutions.algorithms._0_999._26_Remove_Duplicates_from_Sorted_Array;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._26_Remove_Duplicates_from_Sorted_Array.Solution;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SolutionTest {
 
