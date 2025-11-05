@@ -1,31 +1,40 @@
 package solutions.algorithms._0_999._189_Rotate_Array;
 
 class Solution {
+
+    /*
+    My solution is to repeat the whole process k times
+    each time, I move the elements to the right, starting with the element at index 0, which goes to 1,
+    up to the element at index n-1 which moves to index 0.
+    I only need to keep in memory the value at i+1 which I overwrite with i.
+
+    Also, I don't need to rotate k times, because after nums.length rotations, the state is the same
+    I need to do it k mod nums.length times
+
+    Update:
+    Ok, that doesn't make sense. I'm getting TLE, so I will move each element to its dedicated place, actually using the algorithm I have.
+
+    And it was impossible, so I had to check the original solution,
+    because I wouldn’t have come up with the O(1) memory approach on my own.
+     */
     public void rotate(int[] nums, int k) {
 
-        int length = nums.length;
-        k = k % length;
-        //reverse last part to move
-        reverse(nums, length - k, length - 1);
+        if (nums.length == 1 || nums.length == k) {
+            return;
+        }
 
-        //reverse first part
-        reverse(nums, 0, length - k - 1);
-
-        // reverse all
-        reverse(nums, 0, length - 1);
+        k = k % nums.length;
+        reverse(nums, 0, nums.length - 1);
+        reverse(nums, 0, k - 1);
+        reverse(nums, k, nums.length - 1);
     }
 
-    private void swap(int[] arr, int idx1, int idx2) {
-        int temp = arr[idx1];
-        arr[idx1] = arr[idx2];
-        arr[idx2] = temp;
-    }
-
-    private void reverse(int[] arr, int idx1, int idx2) {
-        while (idx1 < idx2) {
-            swap(arr, idx1, idx2);
-            idx1++;
-            idx2--;
+    void reverse(int[] nums, int start, int end) {
+        int iter = (end - start + 1) / 2;
+        for (int i = 0; i < iter; i++) {
+            int temp = nums[i + start];
+            nums[i + start] = nums[end - (i)];
+            nums[end - i] = temp;
         }
     }
 }
