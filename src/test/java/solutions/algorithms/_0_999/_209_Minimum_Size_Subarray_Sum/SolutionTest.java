@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._209_Minimum_Size_Subarray_Sum;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._209_Minimum_Size_Subarray_Sum.Solution;
 
 class SolutionTest {
 
