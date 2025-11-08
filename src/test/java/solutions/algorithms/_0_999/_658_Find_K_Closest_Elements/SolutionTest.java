@@ -61,14 +61,11 @@ class SolutionTest {
 
     @Test
     void findClosestElements6() {
-        int[] arr = new int[]{0,0,0,1,3,5,6,7,8,8};
+        int[] arr = new int[]{0, 0, 0, 1, 3, 5, 6, 7, 8, 8};
         int k = 2;
         int x = 2;
         List<Integer> answer = solution.findClosestElements(arr, k, x);
 
         Assertions.assertThat(answer).containsExactly(1, 3);
     }
-
-
-
 }
