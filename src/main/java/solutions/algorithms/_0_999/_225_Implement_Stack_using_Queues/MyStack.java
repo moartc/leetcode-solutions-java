@@ -1,32 +1,30 @@
 package solutions.algorithms._0_999._225_Implement_Stack_using_Queues;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 class MyStack {
 
-    private Queue<Integer> queue;
+    private final LinkedList<Integer> list;
 
     public MyStack() {
-        queue = new LinkedList<>();
+        list = new LinkedList<>();
     }
 
     public void push(int x) {
-        queue.add(x);
-        for (int i = 0; i < queue.size() - 1; i++) {
-            queue.add(queue.remove());
-        }
+        list.add(x);
     }
 
     public int pop() {
-        return queue.poll();
+        int toReturn = list.getLast();
+        list.removeLast();
+        return toReturn;
     }
 
     public int top() {
-        return queue.peek();
+        return list.getLast();
     }
 
     public boolean empty() {
-        return queue.isEmpty();
+        return list.isEmpty();
     }
 }

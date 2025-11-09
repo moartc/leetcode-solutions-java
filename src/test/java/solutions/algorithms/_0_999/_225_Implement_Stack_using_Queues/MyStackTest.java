@@ -3,7 +3,6 @@ package solutions.algorithms._0_999._225_Implement_Stack_using_Queues;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._225_Implement_Stack_using_Queues.MyStack;
 
 class MyStackTest {
 
