@@ -4,35 +4,48 @@ import java.util.Stack;
 
 class MyQueue {
 
-    Stack<Integer> stack1 = new Stack<>();
-    Stack<Integer> stack2 = new Stack<>();
+    /*
+     It looks like I can put items onto the first stack and then,
+     before operations like pop or peek I move everything to the other one,
+     then again back on the first one.
+     */
+
+    private final Stack<Integer> stack1;
+    private final Stack<Integer> stack2;
 
     public MyQueue() {
+        stack1 = new Stack<>();
+        stack2 = new Stack<>();
     }
 
     public void push(int x) {
-
-        while (!stack1.empty()) {
-            stack2.push(stack1.pop());
-        }
-
-        stack2.push(x);
-
-        while (!stack2.empty()) {
-            stack1.push(stack2.pop());
-        }
+        stack1.add(x);
     }
 
     public int pop() {
-        return stack1.pop();
+        while (!stack1.isEmpty()) {
+            stack2.add(stack1.pop());
+        }
+        int toReturn = stack2.pop();
+        while (!stack2.isEmpty()) {
+            stack1.add(stack2.pop());
+        }
+        return toReturn;
     }
 
     public int peek() {
-        return stack1.peek();
+        while (!stack1.isEmpty()) {
+            stack2.add(stack1.pop());
+        }
+        int toReturn = stack2.peek();
+        while (!stack2.isEmpty()) {
+            stack1.add(stack2.pop());
+        }
+        return toReturn;
     }
 
     public boolean empty() {
-        return stack1.empty();
+        return stack1.isEmpty();
     }
 }
 
