@@ -2,32 +2,28 @@ package solutions.algorithms._0_999._35_Search_Insert_Position;
 
 class Solution {
     public int searchInsert(int[] nums, int target) {
-        return search(0, nums.length - 1, nums, target);
+        return find(nums, target, 0, nums.length - 1);
     }
 
-    public int search(int begin, int end, int[] array, int target) {
-        int middle = (begin + end) / 2;
-        int middleElement = array[middle];
-        if (target < middleElement) {
-            int diff = end - begin;
-            if (diff <= 1) {
-                return begin;
+    int find(int[] nums, int target, int start, int end) {
+
+        if (start == end) {
+            if (nums[start] == target) {
+                return start;
             } else {
-                return search(begin, middle, array, target);
-            }
-        } else if (target > middleElement) {
-            int diff = end - begin;
-            if (diff <= 1) {
-                if (target > array[end]) {
-                    return end + 1;
-                } else {
-                    return end;
-                }
-            } else {
-                return search(middle + 1, end, array, target);
+                return nums[start] > target ? start : start + 1;
             }
         } else {
-            return middle;
+            int mid = (start + end) / 2;
+            int midVal = nums[mid];
+            if (midVal == target) {
+                return mid;
+            }
+            if (midVal > target) {
+                return find(nums, target, start, mid);
+            } else {
+                return find(nums, target, mid + 1, end);
+            }
         }
     }
 }
