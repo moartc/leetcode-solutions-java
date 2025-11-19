@@ -26,7 +26,7 @@ class SolutionTest {
 
     @Test
     void search3() {
-        int[] nums = new int[]{1,0,1,1,1};
+        int[] nums = new int[]{1, 0, 1, 1, 1};
         int target = 0;
         boolean answer = solution.search(nums, target);
         Assertions.assertThat(answer).isTrue();
@@ -34,7 +34,7 @@ class SolutionTest {
 
     @Test
     void search4() {
-        int[] nums = new int[]{1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1};
+        int[] nums = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1};
         int target = 2;
         boolean answer = solution.search(nums, target);
         Assertions.assertThat(answer).isTrue();
@@ -42,7 +42,7 @@ class SolutionTest {
 
     @Test
     void search5() {
-        int[] nums = new int[]{3,1,1};
+        int[] nums = new int[]{3, 1, 1};
         int target = 3;
         boolean answer = solution.search(nums, target);
         Assertions.assertThat(answer).isTrue();
