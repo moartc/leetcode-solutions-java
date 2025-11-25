@@ -6,22 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+    /*
+    I should collect the value after visiting the left and right node
+     */
     public List<Integer> postorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
+        List<Integer> values = new ArrayList<>();
+        if (root != null) {
+            collect(root, values);
         }
-        collectValues(root, result);
-        return result;
+        return values;
     }
 
-    void collectValues(TreeNode node, List<Integer> result) {
+    void collect(TreeNode node, List<Integer> values) {
         if (node.left != null) {
-            collectValues(node.left, result);
+            collect(node.left, values);
         }
         if (node.right != null) {
-            collectValues(node.right, result);
+            collect(node.right, values);
         }
-        result.add(node.val);
+        values.add(node.val);
     }
 }
