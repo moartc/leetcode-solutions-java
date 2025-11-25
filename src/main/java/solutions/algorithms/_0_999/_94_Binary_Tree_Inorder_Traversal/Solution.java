@@ -6,22 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+    /*
+    I should get the node's value after visiting the left node (if it exists)
+    and before visiting the right one
+     */
     public List<Integer> inorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
+        List<Integer> values = new ArrayList<>();
+        if (root != null) {
+            visit(root, values);
         }
-        collectValues(root, result);
-        return result;
+        return values;
     }
 
-    void collectValues(TreeNode node, List<Integer> result) {
+    void visit(TreeNode node, List<Integer> values) {
         if (node.left != null) {
-            collectValues(node.left, result);
+            visit(node.left, values);
         }
-        result.add(node.val);
+        values.add(node.val);
         if (node.right != null) {
-            collectValues(node.right, result);
+            visit(node.right, values);
         }
     }
 }
