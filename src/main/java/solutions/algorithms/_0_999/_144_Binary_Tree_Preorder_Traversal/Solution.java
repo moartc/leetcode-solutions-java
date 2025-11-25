@@ -6,22 +6,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 class Solution {
+    /*
+    collect the value right after entering the node
+     */
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> result = new ArrayList<>();
-        if (root == null) {
-            return result;
+        List<Integer> values = new ArrayList<>();
+        if (root != null) {
+            collect(root, values);
         }
-        collectValues(root, result);
-        return result;
+        return values;
     }
 
-    void collectValues(TreeNode node, List<Integer> result) {
-        result.add(node.val);
+    void collect(TreeNode node, List<Integer> values) {
+        values.add(node.val);
         if (node.left != null) {
-            collectValues(node.left, result);
+            collect(node.left, values);
         }
         if (node.right != null) {
-            collectValues(node.right, result);
+            collect(node.right, values);
         }
     }
 }
