@@ -18,27 +18,33 @@ import commons.TreeNode;
  * }
  */
 class Solution {
+    /*
+    Let's insert it as a leaf
+    At each step I check the current node, if my value is greater, I go right, if it's lower I go left
+    When I reach a node with no leaf to visit, I add it there
+     */
     public TreeNode insertIntoBST(TreeNode root, int val) {
         if (root == null) {
-            root = new TreeNode(val);
+            return new TreeNode(val);
         } else {
-            insert(root, val);
+            visitAndAdd(root, val);
+            // return root here
+            return root;
         }
-        return root;
     }
 
-    void insert(TreeNode node, int val) {
-        if (node.val < val) {
+    void visitAndAdd(TreeNode node, int val) {
+        if (node.val < val) { // I should go right
             if (node.right == null) {
                 node.right = new TreeNode(val);
             } else {
-                insertIntoBST(node.right, val);
+                visitAndAdd(node.right, val);
             }
-        } else { // node.val > val
+        } else { // go left
             if (node.left == null) {
                 node.left = new TreeNode(val);
             } else {
-                insertIntoBST(node.left, val);
+                visitAndAdd(node.left, val);
             }
         }
     }

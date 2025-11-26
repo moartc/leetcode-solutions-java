@@ -3,7 +3,6 @@ package solutions.algorithms._0_999._701_Insert_into_a_Binary_Search_Tree;
 import commons.TreeNode;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._701_Insert_into_a_Binary_Search_Tree.Solution;
 import solutions.utils.TreeNodeUtils;
 
 import java.util.Arrays;
