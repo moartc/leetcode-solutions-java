@@ -1,6 +1,7 @@
 package solutions.algorithms._1000_1999._1462_Course_Schedule_IV;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 class Solution {
 
@@ -10,58 +11,41 @@ class Solution {
     prerequisites.
 
     the version below beats 5%
-    todo to improve
+    New idea: fill the courseToPrerequisites map with all prerequisites for each course
+    I can store it actually in 2d array -> beats 89/2%
      */
     public List<Boolean> checkIfPrerequisite(int numCourses, int[][] prerequisites, int[][] queries) {
 
-        Set<Integer>[] courseToPrerequisites = new HashSet[numCourses];
+        boolean[][] courseToPrereq = new boolean[numCourses][numCourses];
         for (int[] prerequisite : prerequisites) {
             if (prerequisite.length == 2) {
                 int prereq = prerequisite[0];
                 int course = prerequisite[1];
-
-                if (courseToPrerequisites[course] == null) {
-                    courseToPrerequisites[course] = new HashSet<>();
-                }
-                courseToPrerequisites[course].add(prereq);
+                courseToPrereq[course][prereq] = true;
             }
         }
 
-        List<Boolean> answers = new ArrayList<>();
-
-        for (int[] query : queries) {
-            int prereq = query[0];
-            int course = query[1];
-            boolean singleAnswer = isXPrereqForCourse(prereq, course, courseToPrerequisites);
-            answers.add(singleAnswer);
-        }
-        return answers;
-    }
-
-    boolean isXPrereqForCourse(int prereqId, int courseId, Set<Integer>[] courseToPrerequisites) {
-
-        PriorityQueue<Integer> queue = new PriorityQueue<>();
-        Set<Integer> visited = new HashSet<>();
-        if (courseToPrerequisites[courseId] != null) {
-            for (Integer i : courseToPrerequisites[courseId]) {
-                queue.add(i);
-                visited.add(i);
-            }
-        }
-
-        while (!queue.isEmpty()) {
-            Integer singleCourse = queue.poll();
-            if (singleCourse == prereqId) {
-                return true;
-            }
-            if (courseToPrerequisites[singleCourse] != null) {
-                for (Integer anotherCourse : courseToPrerequisites[singleCourse]) {
-                    if (visited.add(anotherCourse)) {
-                        queue.add(anotherCourse);
+        // for each course find all prerequisites
+        for (int i = 0; i < numCourses; i++) {
+            for (int j = 0; j < numCourses; j++) {
+                if (courseToPrereq[i][j]) {
+                    for (int k = 0; k < numCourses; k++) {
+                        if (courseToPrereq[k][i]) {
+                            // if j is prerequisite for i and i is for k, then j is for k
+                            courseToPrereq[k][j] = true;
+                        }
                     }
                 }
             }
         }
-        return false;
+
+        List<Boolean> answers = new ArrayList<>();
+        for (int[] query : queries) {
+            int prereq = query[0];
+            int course = query[1];
+            boolean singleAnswer = courseToPrereq[course][prereq];
+            answers.add(singleAnswer);
+        }
+        return answers;
     }
 }
