@@ -13,61 +13,103 @@ class Solution {
     the same process. The result of this operation should be a pair -> name to list of emails.
     Once done with one name, I go to the next map entry (a different name) and repeat the process.
 
-    this beats only 5%, next try - union-find
-    todo refactor
+    this beats only 5%, next try - union-find:
+
+    Go through all inputs and create a map as above.
+    then for each name and set in the map I use union-find.
+    First, I add all the emails as nodes. For each set, I take the first email and call union with all the others.
+    then I move to the next set, take its first email, and union all others with it.
+    At the end, I can go through all the emails and group them by parents.
+
+    it beats 11% xD todo - to improve
      */
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
 
-        Map<String, List<Set<String>>> nameToAllEmails = new HashMap<>();
+        Map<String, List<List<String>>> nameToAllEmails = new HashMap<>();
         for (List<String> account : accounts) {
             String name = account.get(0);
             if (!nameToAllEmails.containsKey(name)) {
                 nameToAllEmails.put(name, new ArrayList<>());
             }
-            Set<String> setOfEmail = new HashSet<>();
+            List<String> emails = new ArrayList<>();
             for (int i = 1; i < account.size(); i++) {
-                setOfEmail.add(account.get(i));
+                emails.add(account.get(i));
             }
-            nameToAllEmails.get(name).add(setOfEmail);
+            nameToAllEmails.get(name).add(emails);
         }
-        List<List<String>> finalResult = new ArrayList<>();
-        for (Map.Entry<String, List<Set<String>>> keyValue : nameToAllEmails.entrySet()) {
-            String name = keyValue.getKey();
-            List<Set<String>> listOfSets = keyValue.getValue();
-            List<Set<String>> mergedSets = new ArrayList<>();
-            // repeat for each set from the list
-            boolean[] visited = new boolean[listOfSets.size()];
-            for (int i = 0; i < listOfSets.size(); i++) {
-                if (!listOfSets.get(i).isEmpty()) {
-                    List<String> resultForName = new ArrayList<>();
-                    resultForName.add(name);
-                    Set<String> newResult = new HashSet<>();
-                    visitAndMerge(listOfSets, i, visited, newResult);
-                    mergedSets.add(newResult);
-                    ArrayList<String> resultAsList = new ArrayList<>(newResult);
-                    Collections.sort(resultAsList);
-                    resultForName.addAll(resultAsList);
-                    finalResult.add(resultForName);
+
+        List<List<String>> answer = new ArrayList<>();
+
+        for (Map.Entry<String, List<List<String>>> keyValue : nameToAllEmails.entrySet()) {
+
+            List<List<String>> listOfListOfEmails = keyValue.getValue();
+
+            Map<String, String> parent = new HashMap<>();
+            Map<String, Integer> rank = new HashMap<>();
+
+            for (List<String> listOfEmails : listOfListOfEmails) {
+                for (String e : listOfEmails) {
+                    parent.put(e, e);
+                    rank.put(e, 0);
                 }
             }
+
+            for (List<String> listOfEmails : listOfListOfEmails) {
+                String first = listOfEmails.get(0);
+                for (int i = 1; i < listOfEmails.size(); i++) {
+                    union(first, listOfEmails.get(i), parent, rank);
+                }
+            }
+            // now I can collect them
+            Map<String, Set<String>> parentEmailToAllOther = new HashMap<>();
+            for (List<String> listOfListOfEmail : listOfListOfEmails) {
+                for (String e : listOfListOfEmail) {
+                    String p = findParent(e, parent);
+                    if (!parentEmailToAllOther.containsKey(p)) {
+                        parentEmailToAllOther.put(p, new HashSet<>());
+                    }
+                    parentEmailToAllOther.get(p).add(e);
+                }
+            }
+
+            String name = keyValue.getKey();
+            for (Map.Entry<String, Set<String>> entry : parentEmailToAllOther.entrySet()) {
+                List<String> singleListForName = new ArrayList<>();
+                for (String s : entry.getValue()) {
+                    singleListForName.add(s);
+                }
+                Collections.sort(singleListForName);
+                // add it after sorting
+                singleListForName.add(0, name);
+                answer.add(singleListForName);
+            }
         }
-        return finalResult;
+        return answer;
     }
 
-    void visitAndMerge(List<Set<String>> listOfSets, int currentId, boolean[] visited, Set<String> result) {
-        if (listOfSets.get(currentId).isEmpty()) {
-            return;
+    private boolean union(String f, String s, Map<String, String> parent, Map<String, Integer> rank) {
+        String parentF = findParent(f, parent);
+        String parentS = findParent(s, parent);
+        if (parentF.equals(parentS)) {
+            return false;
         }
-        visited[currentId] = true;
-        Set<String> emailInTheCurrentSet = listOfSets.get(currentId);
-        result.addAll(emailInTheCurrentSet);
-        for (String e : emailInTheCurrentSet) {
-            for (int i = 0; i < listOfSets.size(); i++) {
-                if (!visited[i] && listOfSets.get(i).contains(e)) {
-                    visitAndMerge(listOfSets, i, visited, result);
-                }
-            }
+        int rankF = rank.get(parentF);
+        int rankS = rank.get(parentS);
+        if (rankF < rankS) {
+            parent.put(parentF, parentS);
+        } else if (rankS < rankF) {
+            parent.put(parentS, parentF);
+        } else {
+            parent.put(parentS, parentF);
+            rank.put(parentF, rank.get(parentF) + 1);
         }
-        listOfSets.get(currentId).clear();
+        return true;
+    }
+
+    private String findParent(String email, Map<String, String> parent) {
+        if (!parent.get(email).equals(email)) {
+            parent.put(email, findParent(parent.get(email), parent));
+        }
+        return parent.get(email);
     }
 }

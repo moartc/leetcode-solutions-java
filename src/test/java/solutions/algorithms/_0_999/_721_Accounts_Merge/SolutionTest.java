@@ -64,4 +64,21 @@ class SolutionTest {
         List<List<String>> answer = solution.accountsMerge(accounts);
         Assertions.assertThat(answer).hasSameElementsAs(expectedAnswer);
     }
+
+    @Test
+    void accountsMerge4() {
+        List<List<String>> accounts = List.of(
+                List.of("David", "Avid0@m.co", "David0@m.co", "David1@m.co"),
+                List.of("David", "Gvid3@m.co", "David3@m.co", "David4@m.co"),
+                List.of("David", "David4@m.co", "David5@m.co"),
+                List.of("David", "David2@m.co", "David3@m.co"),
+                List.of("David", "David1@m.co", "David2@m.co")
+        );
+        List<List<String>> expectedAnswer = List.of(
+                List.of("David", "Avid0@m.co", "David0@m.co", "David1@m.co", "David2@m.co", "David3@m.co", "David4@m.co", "David5@m.co",
+                        "Gvid3@m.co")
+        );
+        List<List<String>> answer = solution.accountsMerge(accounts);
+        Assertions.assertThat(answer).hasSameElementsAs(expectedAnswer);
+    }
 }
