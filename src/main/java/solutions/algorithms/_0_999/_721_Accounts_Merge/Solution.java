@@ -21,32 +21,23 @@ class Solution {
     then I move to the next set, take its first email, and union all others with it.
     At the end, I can go through all the emails and group them by parents.
 
-    it beats 11% xD todo - to improve
+    beats 16.75%
      */
     public List<List<String>> accountsMerge(List<List<String>> accounts) {
 
         Map<String, List<List<String>>> nameToAllEmails = new HashMap<>();
+
         for (List<String> account : accounts) {
             String name = account.get(0);
-            if (!nameToAllEmails.containsKey(name)) {
-                nameToAllEmails.put(name, new ArrayList<>());
-            }
-            List<String> emails = new ArrayList<>();
-            for (int i = 1; i < account.size(); i++) {
-                emails.add(account.get(i));
-            }
-            nameToAllEmails.get(name).add(emails);
+            nameToAllEmails.computeIfAbsent(name, x -> new ArrayList<>()).add(account.subList(1, account.size()));
         }
 
         List<List<String>> answer = new ArrayList<>();
 
         for (Map.Entry<String, List<List<String>>> keyValue : nameToAllEmails.entrySet()) {
-
             List<List<String>> listOfListOfEmails = keyValue.getValue();
-
             Map<String, String> parent = new HashMap<>();
             Map<String, Integer> rank = new HashMap<>();
-
             for (List<String> listOfEmails : listOfListOfEmails) {
                 for (String e : listOfEmails) {
                     parent.put(e, e);
@@ -62,22 +53,14 @@ class Solution {
             }
             // now I can collect them
             Map<String, Set<String>> parentEmailToAllOther = new HashMap<>();
-            for (List<String> listOfListOfEmail : listOfListOfEmails) {
-                for (String e : listOfListOfEmail) {
-                    String p = findParent(e, parent);
-                    if (!parentEmailToAllOther.containsKey(p)) {
-                        parentEmailToAllOther.put(p, new HashSet<>());
-                    }
-                    parentEmailToAllOther.get(p).add(e);
-                }
+            for (String e : parent.keySet()) {
+                String p = findParent(e, parent);
+                parentEmailToAllOther.computeIfAbsent(p, x -> new HashSet<>()).add(e);
             }
 
             String name = keyValue.getKey();
             for (Map.Entry<String, Set<String>> entry : parentEmailToAllOther.entrySet()) {
-                List<String> singleListForName = new ArrayList<>();
-                for (String s : entry.getValue()) {
-                    singleListForName.add(s);
-                }
+                List<String> singleListForName = new ArrayList<>(entry.getValue());
                 Collections.sort(singleListForName);
                 // add it after sorting
                 singleListForName.add(0, name);
