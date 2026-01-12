@@ -11,9 +11,11 @@ class Solution {
     - to check if an edge is pseudo-critical I can add it - if the total sum stays the same - it is.
 
     For this: Kruskal
+
+    update: with path compression it finally beats 10%
+    final version beats 18.09%
      */
     public List<List<Integer>> findCriticalAndPseudoCriticalEdges(int n, int[][] edges) {
-
 
         // union find
         int[] parent = new int[n];
@@ -31,16 +33,13 @@ class Solution {
 
         Arrays.sort(edgesWithIdx, Comparator.comparingInt(o -> o[2]));
 
-
         resetUnion(parent, rank, n);
 
-        Set<int[]> spanningTree = new HashSet<>();
         int totalSum = 0;
         for (int[] edge : edgesWithIdx) {
             int f = edge[0];
             int s = edge[1];
             if (find(f, parent) != find(s, parent)) {
-                spanningTree.add(edge);
                 totalSum += edge[2];
                 union(f, s, parent, rank);
             }
@@ -48,28 +47,32 @@ class Solution {
 
         // check if it's critical
         List<Integer> criticalEdges = new ArrayList<>();
+        boolean[] isCritical = new boolean[edges.length];
         for (int i = 0; i < edgesWithIdx.length; i++) {
             resetUnion(parent, rank, n);
-            Set<int[]> spanningTreeCritical = new HashSet<>();
             int orig = edgesWithIdx[i][3];
             int sumCriticalCheck = 0;
+            int edgesUsed = 0;
             for (int[] edge : edgesWithIdx) {
+                if (edgesUsed == n - 1) {
+                    break;
+                }
                 int f = edge[0];
                 int s = edge[1];
                 if (find(f, parent) != find(s, parent)) {
                     if (edge[3] == orig) {
                         // skip it
                     } else {
-                        spanningTreeCritical.add(edge);
                         sumCriticalCheck += edge[2];
                         union(f, s, parent, rank);
+                        edgesUsed++;
                     }
                 }
             }
-            if (totalSum != sumCriticalCheck) {
+            if (totalSum != sumCriticalCheck || edgesUsed < n - 1) {
                 criticalEdges.add(orig);
+                isCritical[orig] = true;
             }
-
         }
 
 
@@ -77,27 +80,28 @@ class Solution {
         List<Integer> pseudoCriticalEdges = new ArrayList<>();
         for (int i = 0; i < edgesWithIdx.length; i++) {
             int totalSumPseudoCritical = 0;
+            int edgesUsed = 1;
             resetUnion(parent, rank, n);
             // force add
-            for (int[] withIdx : edgesWithIdx) {
-                if (i == withIdx[3]) {
-                    totalSumPseudoCritical += edgesWithIdx[i][2];
-                    union(edgesWithIdx[i][0], edgesWithIdx[i][1], parent, rank);
-                }
-            }
+            totalSumPseudoCritical += edgesWithIdx[i][2];
+            union(edgesWithIdx[i][0], edgesWithIdx[i][1], parent, rank);
             int orig = edgesWithIdx[i][3];
 
             for (int[] edge : edgesWithIdx) {
+                if (edgesUsed == n - 1) {
+                    break;
+                }
                 int f = edge[0];
                 int s = edge[1];
                 if (find(f, parent) != find(s, parent)) {
                     if (edge[3] != orig) { // already added
                         totalSumPseudoCritical += edge[2];
                         union(f, s, parent, rank);
+                        edgesUsed++;
                     }
                 }
             }
-            if (totalSum == totalSumPseudoCritical && !criticalEdges.contains(orig)) {
+            if (totalSum == totalSumPseudoCritical && !isCritical[orig] && edgesUsed == n - 1) {
                 pseudoCriticalEdges.add(orig);
             }
         }
@@ -105,10 +109,10 @@ class Solution {
     }
 
     int find(int v, int[] parent) {
-        while (parent[v] != v) {
-            v = parent[v];
+        if (parent[v] != v) {
+            parent[v] = find(parent[v], parent);
         }
-        return v;
+        return parent[v];
     }
 
     void union(int a, int b, int[] parent, int[] rank) {
