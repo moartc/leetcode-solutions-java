@@ -1,6 +1,9 @@
 package solutions.algorithms._1000_1999._1489_Find_Critical_and_Pseudo_Critical_Edges_in_Minimum_Spanning_Tree;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 
 class Solution {
 
@@ -119,13 +122,16 @@ class Solution {
         int ap = find(a, parent);
         int bp = find(b, parent);
 
+        if (ap == bp) {
+            return;
+        }
+
         int ar = rank[ap];
         int br = rank[bp];
-
         if (ar < br) {
-            parent[bp] = ap;
-        } else if (br < ar) {
             parent[ap] = bp;
+        } else if (br < ar) {
+            parent[bp] = ap;
         } else {
             parent[ap] = bp;
             rank[bp]++;
