@@ -9,14 +9,27 @@ class Solution {
     At every step iterate through sorted array skipping duplications
 
     update: I need a cache, and it works without sorting, but it only beats  6.75%
-    todo to improve
+    update: added dp solution - todo to improve
      */
 
     Map<Integer, Integer> cache = new HashMap<>();
 
     public int combinationSum4(int[] nums, int target) {
 
-        return add(0, nums, target);
+        int[] dp = new int[target + 1];
+        for (int num : nums) {
+            if (num <= target) {
+                dp[num] = 1;
+            }
+        }
+        for (int i = 1; i <= target; i++) {
+            for (int num : nums) {
+                if (i - num >= 0) {
+                    dp[i] += dp[i - num];
+                }
+            }
+        }
+        return dp[target];
     }
 
     int add(int currentSum, int[] nums, int target) {
