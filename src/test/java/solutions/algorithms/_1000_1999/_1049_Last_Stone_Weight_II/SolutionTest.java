@@ -20,4 +20,11 @@ class SolutionTest {
         int answer = solution.lastStoneWeightII(stones);
         Assertions.assertThat(answer).isEqualTo(5);
     }
+
+    @Test
+    void lastStoneWeightIItest3() {
+        int[] stones = new int[]{1, 2};
+        int answer = solution.lastStoneWeightII(stones);
+        Assertions.assertThat(answer).isEqualTo(1);
+    }
 }
