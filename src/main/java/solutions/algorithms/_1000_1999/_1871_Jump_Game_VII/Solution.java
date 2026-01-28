@@ -8,7 +8,7 @@ class Solution {
 
     Trying a bfs before watching neet code solution
     LTE
-    my solution based on neet code bfs trick with farthest variable
+    my solution based on neet code bfs trick with the farthest variable
      */
     public boolean canReach(String s, int minJump, int maxJump) {
 
@@ -16,23 +16,25 @@ class Solution {
             return false;
         }
 
-        LinkedList<Integer> toVisit = new LinkedList<>();
-        toVisit.add(0);
-        int farthest = 0;
-        while (!toVisit.isEmpty()) {
-            int current = toVisit.poll();
-            int start = Math.max(current + minJump, farthest + 1);
-            for (int j = start; j <= Math.min(current + maxJump, s.length() - 1); j++) {
-                if (s.charAt(j) == '0') {
-                    toVisit.add(j);
-                    if (j == s.length() - 1) {
+        LinkedList<Integer> queue = new LinkedList<>();
+        queue.add(0);
+        int farhest = 0;
+
+        while (!queue.isEmpty()) {
+            int poll = queue.poll();
+            int max = Math.min(poll + maxJump, s.length() - 1);
+            for (int i = Math.max(poll + minJump, farhest + 1); i <= max; i++) {
+                if (s.charAt(i) == '0') {
+                    if (s.length() - 1 == i) {
                         return true;
                     }
+                    queue.add(i);
                 }
             }
-            farthest = current + maxJump;
+            // it's important to have this here. I don't add '1's so updating it with the poll value would result
+            // in assigning not the real farthest value, but only a '0' one
+            farhest = max;
         }
         return false;
     }
-
 }
