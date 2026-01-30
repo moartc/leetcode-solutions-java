@@ -3,7 +3,6 @@ package solutions.algorithms._0_999._168_Excel_Sheet_Column_Title;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._168_Excel_Sheet_Column_Title.Solution;
 
 class SolutionTest {
 
@@ -58,6 +57,14 @@ class SolutionTest {
     void convertToTitleTest6() {
         int columnNumber = 2;
         String expected = "B";
+        String actual = solution.convertToTitle(columnNumber);
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    void convertToTitleTest7() {
+        int columnNumber = 52;
+        String expected = "AZ";
         String actual = solution.convertToTitle(columnNumber);
         Assertions.assertEquals(expected, actual);
     }
