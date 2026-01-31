@@ -2,7 +2,6 @@ package solutions.algorithms._0_999._201_Bitwise_AND_of_Numbers_Range;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import solutions.algorithms._0_999._201_Bitwise_AND_of_Numbers_Range.Solution;
 
 class SolutionTest {
 
@@ -49,6 +48,15 @@ class SolutionTest {
         int left = 7;
         int right = 9;
         int expected = 0;
+        int actual = solution.rangeBitwiseAnd(left, right);
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void rangeBitwiseAndTest6() {
+        int left = 416;
+        int right = 436;
+        int expected = 416;
         int actual = solution.rangeBitwiseAnd(left, right);
         Assertions.assertThat(actual).isEqualTo(expected);
     }
