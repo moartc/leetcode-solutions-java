@@ -2,53 +2,38 @@ package solutions.algorithms._0_999._67_Add_Binary;
 
 class Solution {
 
+    /*
+    It's just a backward iteration
+    when I have 00 I can add 0 to the result,
+    if I have 01 or 10 I can add 1
+    if I have 11 I add 0 and carry 1 as a remainder
+    after each operation I check if there is any remainder, if so, I add it as well to the 'final step value'
+     */
     public String addBinary(String a, String b) {
 
-        String longer;
-        String shorter;
-        if (a.length() >= b.length()) {
-            longer = a;
-            shorter = b;
-        } else {
-            longer = b;
-            shorter = a;
-        }
-        int longerLength = longer.length();
-        int shorterLength = shorter.length();
-        StringBuilder result = new StringBuilder();
-        boolean moved = false;
-        int i = 1;
-        while (i <= shorterLength) {
-            int longerIndex = longerLength - i;
-            int shorterIndex = shorterLength - i;
-            char longerChar = longer.charAt(longerIndex);
-            char shorterChar = shorter.charAt(shorterIndex);
-            if (longerChar != shorterChar) {
-                result.append(moved ? 0 : 1);
-            } else {
-                if (longerChar == '1') {
-                    result.append(moved ? 1 : 0);
-                    moved = true;
-                } else {
-                    result.append(moved ? 1 : 0);
-                    moved = false;
-                }
+        StringBuilder sb = new StringBuilder();
+
+        int remainder = 0;
+        int aL = a.length();
+        int bL = b.length();
+        int maxIdx = Math.max(aL, bL);
+        for (int i = 0; i < maxIdx; i++) {
+            int f = 0;
+            int s = 0;
+            if (i < aL) {
+                f = a.charAt(aL - 1 - i) - '0';
             }
-            i++;
-        }
-        while (i <= longerLength) {
-            if (longer.charAt(longerLength - i) == '1') {
-                result.append(moved ? 0 : 1);
-            } else {
-                result.append(moved ? 1 : 0);
-                result.reverse().insert(0, longer.substring(0, longerLength - i));
-                return result.toString();
+            if (i < bL) {
+                s = b.charAt(bL -1 - i)- '0';
             }
-            i++;
+            // I can sum up all the values and
+            int stepRes = f + s + remainder;
+            sb.append(stepRes % 2);
+            remainder = stepRes / 2;
         }
-        if (moved) {
-            result.append(1);
+        if(remainder == 1) {
+            sb.append(1);
         }
-        return result.reverse().toString();
+        return sb.reverse().toString();
     }
 }
