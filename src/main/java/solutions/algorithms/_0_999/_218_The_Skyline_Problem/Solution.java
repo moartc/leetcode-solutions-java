@@ -1,9 +1,6 @@
 package solutions.algorithms._0_999._218_The_Skyline_Problem;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
 
 class Solution {
 
@@ -36,12 +33,11 @@ class Solution {
     - 2 buildings with different heights might share the same starting / ending point
 
     update: after some fixes, it actually passed. beats 87.06%
-    todo cleanup
      */
     public List<List<Integer>> getSkyline(int[][] buildings) {
 
         PriorityQueue<int[]> heightHeap = new PriorityQueue<>((o1, o2) -> o2[2] - o1[2]);
-        PriorityQueue<int[]> endHeap = new PriorityQueue<>((o1, o2) -> o1[1] - o2[1]);
+        PriorityQueue<int[]> endHeap = new PriorityQueue<>(Comparator.comparingInt(o -> o[1]));
 
         Arrays.sort(buildings, (o1, o2) -> {
             if (o1[0] == o2[0]) {
@@ -58,7 +54,6 @@ class Solution {
 
             int[] building = buildings[i];
             int start = building[0];
-            int end = building[1];
             int height = building[2];
 
             if (i == 0) { // just add the first one
@@ -70,29 +65,7 @@ class Solution {
                 continue;
             }
             // before I analyse the next one, check endings
-            while (!endHeap.isEmpty() && endHeap.peek()[1] < start) {
-                int[] endedOne = endHeap.poll();
-                if (endedOne == heightHeap.peek()) {
-                    // the one that ended is the highest
-                    int[] highest = heightHeap.poll();
-                    int right = endedOne[1];
-                    // here delete all lower that were not deleted but are ended
-                    while (!heightHeap.isEmpty() && heightHeap.peek()[1] <= right) {
-                        heightHeap.poll();
-                    }
-                    int heightToMark = !heightHeap.isEmpty() ? heightHeap.peek()[2] : 0;
-                    if (heightToMark == highest[2]) {
-                        // it's the same height, skip it
-                        continue;
-                    }
-                    currentHighPoint = heightToMark;
-                    List<Integer> pointToAdd = List.of(right, heightToMark);
-                    result.add(pointToAdd);
-
-                } else {
-                    // do nothing, just delete, but it's still in heightHeap
-                }
-            }
+            currentHighPoint = cleanUpEndHeap(endHeap, heightHeap, result, start, currentHighPoint);
             // process the new one
             if (height > currentHighPoint) {
                 List<Integer> mark = List.of(start, height);
@@ -102,8 +75,15 @@ class Solution {
             heightHeap.add(building);
             endHeap.add(building);
         }
-        // add the end I have to process all endings
-        while (!endHeap.isEmpty()) {
+        // at the end I have to process all endings
+        cleanUpEndHeap(endHeap, heightHeap, result, -1, 0);
+        return result;
+    }
+
+    // start either real one, or -1 if I want to perform 'final' cleanup
+    private int cleanUpEndHeap(PriorityQueue<int[]> endHeap, PriorityQueue<int[]> heightHeap, List<List<Integer>> result, int start,
+                               int currentHighPoint) {
+        while (!endHeap.isEmpty() && (start == -1 || endHeap.peek()[1] < start)) {
             int[] endedOne = endHeap.poll();
             if (endedOne == heightHeap.peek()) {
                 // the one that ended is the highest
@@ -123,9 +103,9 @@ class Solution {
                 result.add(pointToAdd);
 
             } else {
-                // do nothing, just delete, but it's still in heightHeap
+                // do nothing, just delete, keep in mind it still in heightHeap
             }
         }
-        return result;
+        return currentHighPoint;
     }
 }
