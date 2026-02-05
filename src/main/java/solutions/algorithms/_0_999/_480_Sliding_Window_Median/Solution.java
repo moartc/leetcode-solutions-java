@@ -1,9 +1,7 @@
 package solutions.algorithms._0_999._480_Sliding_Window_Median;
 
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.TreeMap;
 
 class Solution {
 
@@ -16,104 +14,105 @@ class Solution {
     the only problem is that I cannot efficiently remove the value that leaves the window from a heap.
     But since I know which heap it is in, I can mark it as 'deleted', and track that the heap is
     larger by 1 because of that. When I eventually poll this value , I delete (simply ignore) it and poll the next one.
+    ----------------------
+    update: I couldn't solve it in 2 days. It turned out to be harder to implement than I expected and in the end
+    I got a TLE on one test case.
+
+    I'm switching to a TreeSet - so I can delete element (relatively fast) and the implementation should be much simpler.
+    update: ok, finally it somehow works, beats 33.18%
      */
     public double[] medianSlidingWindow(int[] nums, int k) {
 
-        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((o1, o2) -> Integer.compare(o2, o1));
-        PriorityQueue<Integer> minHeap = new PriorityQueue<>(Comparator.comparingInt(o -> o));
+        // lower half / the highest at the end, compare with the end
+        TreeMap<Integer, Integer> min = new TreeMap<>();
+        // higher half / the lowest at the beginning, compare with the beginning
+        TreeMap<Integer, Integer> max = new TreeMap<>();
 
-        int maxHeapSize = 0;
-        int minHeapSize = 0;
-        Map<Integer, Integer> deleted = new HashMap<>();
-        int resArraySize = nums.length - k + 1;
-        double[] res = new double[resArraySize];
+        int minCtr = 0;
+        int maxCtr = 0;
 
-        // main loop, start from 0..size-1-k
-        for (int i = 0; i < nums.length + 1 - k; i++) {
-            // first setup
-            if (i == 0) {
-                for (int j = 0; j < k; j++) {
-                    int val = nums[j];
-                    minHeap.add(val);
-                    minHeapSize++;
-                }
-                for (int j = 0; j < (k + 1) / 2; j++) {
-                    maxHeap.add(minHeap.poll());
-                    minHeapSize--;
-                    maxHeapSize++;
-                }
-            } else {
-                int outOfWindow = nums[i - 1];
-                Integer currentCtr = deleted.getOrDefault(outOfWindow, 0);
-                deleted.put(outOfWindow, currentCtr + 1);
-                // decrease heap ctr and try to delete
-                if (!maxHeap.isEmpty() && outOfWindow <= maxHeap.peek()) {
-                    maxHeapSize--;
+        double[] res = new double[nums.length - k + 1];
+
+        for (int i = 0; i < nums.length; i++) {
+            int toAdd = nums[i];
+            // add it here, then I will rebalance
+            if (i < k) {
+                add(min, toAdd);
+                minCtr++;
+            } else { // here I have a full window
+                int toDelete = nums[i - k];
+                if (!min.isEmpty() && toDelete <= min.lastKey()) {
+                    delete(min, toDelete);
+                    minCtr--;
                 } else {
-                    minHeapSize--;
+                    // delete from max
+                    delete(max, toDelete);
+                    maxCtr--;
                 }
-
-                // get the next one
-                int nextOne = nums[i + k - 1];
-                // add it
-                if (maxHeap.isEmpty() || nextOne <= maxHeap.peek()) {
-                    maxHeap.add(nextOne);
-                    deleteDeletedTopElement(maxHeap, deleted);
-
-                    maxHeapSize++;
+                // adding part
+                // if it's greater than the lowest in bigger half
+                if (max.isEmpty() || toAdd >= max.firstKey()) {
+                    add(max, toAdd);
+                    maxCtr++;
                 } else {
-                    minHeap.add(nextOne);
-                    deleteDeletedTopElement(minHeap, deleted);
-
-                    minHeapSize++;
-                }
-
-
-                // now rebalance
-                while (!minHeap.isEmpty() && minHeapSize + (k % 2) != maxHeapSize) {
-                    Integer minEl = minHeap.poll();
-                    minHeapSize--;
-                    maxHeap.add(minEl);
-                    maxHeapSize++;
-                }
-                while (!maxHeap.isEmpty() && minHeapSize + (k % 2) != maxHeapSize) {
-                    Integer maxEl = maxHeap.poll();
-                    maxHeapSize--;
-                    minHeap.add(maxEl);
-                    minHeapSize++;
+                    add(min, toAdd);
+                    minCtr++;
                 }
             }
-            // now I can check avg
-            if (k % 2 == 0) {
-                deleteDeletedTopElement(maxHeap, deleted);
-                deleteDeletedTopElement(minHeap, deleted);
-                int v1 = maxHeap.peek();
-                int v2 = minHeap.peek();
-                // weird way of calculating it, but otherwise I cannot handle the case
-                // with Integer.MAX
-                double avg = (v1 / 2.0 + v2 / 2.0);
-                res[i] = avg;
-
-            } else {
-                deleteDeletedTopElement(maxHeap, deleted);
-                int v = maxHeap.peek();
-                res[i] = v;
-//                System.out.println("v = " + v);
+            if (i >= k - 1) {
+                // rabalance part
+                while (maxCtr > minCtr + 1) {
+                    Map.Entry<Integer, Integer> entry = max.firstEntry();
+                    if (entry == null) {
+                        break;
+                    }
+                    add(min, entry.getKey());
+                    delete(max, entry.getKey());
+                    maxCtr--;
+                    minCtr++;
+                }
+                while (minCtr > maxCtr) {
+                    Map.Entry<Integer, Integer> entry = min.lastEntry();
+                    if (entry == null) {
+                        break;
+                    }
+                    add(max, entry.getKey());
+                    delete(min, entry.getKey());
+                    minCtr--;
+                    maxCtr++;
+                }
+                // avg
+                if (k % 2 == 0) {
+                    Integer v1 = min.lastKey();
+                    Integer v2 = max.firstKey();
+                    double avg = v1 / 2.0 + v2 / 2.0;
+                    res[i - k + 1] = avg;
+                } else {
+                    int v = max.firstKey();
+                    res[i - k + 1] = v;
+                }
             }
         }
+        // 1 1 3 4
+        // 5 7 8
         return res;
     }
 
-    void deleteDeletedTopElement(PriorityQueue<Integer> heap, Map<Integer, Integer> deleted) {
-        while (!heap.isEmpty()) {
-            Integer topElement = heap.peek();
-            Integer currentCtr = deleted.getOrDefault(topElement, 0);
-            if (currentCtr > 0) {
-                deleted.put(topElement, currentCtr - 1);
-                heap.poll();
-            } else {
-                break;
-            }
+    void delete(TreeMap<Integer, Integer> map, int toDelete) {
+        Integer i = map.get(toDelete);
+        if (i != null && i > 1) {
+            map.put(toDelete, i - 1);
+        } else {
+            map.remove(toDelete);
+        }
+    }
+
+    void add(TreeMap<Integer, Integer> map, int toAdd) {
+        if (map.containsKey(toAdd)) {
+            Integer current = map.get(toAdd);
+            map.put(toAdd, current + 1);
+        } else {
+            map.put(toAdd, 1);
         }
     }
 }
