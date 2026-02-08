@@ -109,4 +109,61 @@ class LRUCacheTest {
         var v2 = lRUCache.get(2);
         Assertions.assertThat(v2).isEqualTo(3);
     }
+
+    @Test
+    void test7() {
+
+        LRUCache lRUCache = new LRUCache(2);
+        lRUCache.put(2, 1);
+        lRUCache.put(2, 2);
+
+        var v1 = lRUCache.get(2);
+        Assertions.assertThat(v1).isEqualTo(2);
+
+        lRUCache.put(1, 1);
+        lRUCache.put(4, 1);
+
+        var v2 = lRUCache.get(2);
+        Assertions.assertThat(v2).isEqualTo(-1);
+    }
+
+    @Test
+    void test8() {
+
+        LRUCache lRUCache = new LRUCache(10);
+        lRUCache.put(7, 28);
+        lRUCache.put(7, 1);
+        lRUCache.put(8, 15);
+        int i = lRUCache.get(6);
+        Assertions.assertThat(i).isEqualTo(-1);
+
+        lRUCache.put(10, 27);
+        lRUCache.put(8, 10);
+        int i1 = lRUCache.get(8);
+        Assertions.assertThat(i1).isEqualTo(10);
+
+        lRUCache.put(6, 29);
+        lRUCache.put(1, 9);
+        int i2 = lRUCache.get(6);
+        Assertions.assertThat(i2).isEqualTo(29);
+
+        lRUCache.put(10, 7);
+        int i3 = lRUCache.get(1);
+        Assertions.assertThat(i3).isEqualTo(9);
+
+        int i4 = lRUCache.get(2);
+        Assertions.assertThat(i4).isEqualTo(-1);
+
+        int i5 = lRUCache.get(13);
+        Assertions.assertThat(i5).isEqualTo(-1);
+
+        lRUCache.put(8, 30);
+        lRUCache.put(1, 5);
+        int i6 = lRUCache.get(1);
+        Assertions.assertThat(i6).isEqualTo(5);
+
+        lRUCache.put(13, 2);
+        int i7 = lRUCache.get(12);
+        Assertions.assertThat(i7).isEqualTo(-1);
+    }
 }
