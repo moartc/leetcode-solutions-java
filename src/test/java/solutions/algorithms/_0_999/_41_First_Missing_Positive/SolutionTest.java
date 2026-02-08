@@ -34,4 +34,11 @@ class SolutionTest {
         int answer = solution.firstMissingPositive(nums);
         Assertions.assertThat(answer).isEqualTo(5);
     }
+
+    @Test
+    void firstMissingPositive5() {
+        int[] nums = new int[]{1, 1};
+        int answer = solution.firstMissingPositive(nums);
+        Assertions.assertThat(answer).isEqualTo(2);
+    }
 }
