@@ -15,9 +15,8 @@ class StreamChecker {
     When I reach the end I return true, otherwise false.
     Also, when I retrieve a previously saved position  and cannot match the next char for the 'current' character
     I remove it from the saved positions.
-    update: beats 26.78%, todo to improve, maybe query method, that I could delete nodes that create word but have no children
+    update: beats 26.78%
      */
-
     private Node main;
     private Set<Node> saved;
 
@@ -35,20 +34,21 @@ class StreamChecker {
         boolean toReturn = false;
         Set<Node> newSaved = new HashSet<>();
         for (Node node : saved) {
-            if (node.map[letter - 'a'] != null) {
-                if (node.map[letter - 'a'].isWord) {
+            Node savedNode = node.map[letter - 'a'];
+            if (savedNode != null) {
+                if (savedNode.isWord) {
                     toReturn = true;
                 }
-                newSaved.add(node.map[letter - 'a']);
+                newSaved.add(savedNode);
             }
         }
-        if (main.map[letter - 'a'] != null) {
+        Node mainNode = main.map[letter - 'a'];
+        if (mainNode != null) {
             // the first letter might create a word
-            if (main.map[letter - 'a'].isWord) {
+            if (mainNode.isWord) {
                 toReturn = true;
-                newSaved.add(main.map[letter - 'a']);
             }
-            newSaved.add(main.map[letter - 'a']);
+            newSaved.add(mainNode);
 
         }
         saved = newSaved;
@@ -59,9 +59,9 @@ class StreamChecker {
         Node currentNode = main;
         for (int i = 0; i < w.length(); i++) {
             char c = w.charAt(i);
+            Node node = currentNode.map[c - 'a'];
             if (i == w.length() - 1) {
                 // if that's the last character
-                Node node = currentNode.map[c - 'a'];
                 if (node != null) {
                     currentNode = node;
                     node.isWord = true;
@@ -71,7 +71,6 @@ class StreamChecker {
                     currentNode.map[c - 'a'] = newNode;
                 }
             } else {
-                Node node = currentNode.map[c - 'a'];
                 if (node != null) {
                     currentNode = node;
                 } else {
