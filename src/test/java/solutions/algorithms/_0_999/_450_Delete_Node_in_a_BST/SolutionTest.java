@@ -25,16 +25,16 @@ class SolutionTest {
         int rootV = afterDeletion.val;
         int leftV = afterDeletion.left.val;
         int rightV = afterDeletion.right.val;
-        int leftL = afterDeletion.left.left.val;
-        TreeNode leftRV = afterDeletion.left.right;
+        int leftR = afterDeletion.left.right.val;
+        TreeNode leftLV = afterDeletion.left.left;
         TreeNode rightLN = afterDeletion.right.left;
         int rightRV = afterDeletion.right.right.val;
 
         Assertions.assertThat(rootV).isEqualTo(5);
-        Assertions.assertThat(leftV).isEqualTo(4);
+        Assertions.assertThat(leftV).isEqualTo(2);
         Assertions.assertThat(rightV).isEqualTo(6);
-        Assertions.assertThat(leftL).isEqualTo(2);
-        Assertions.assertThat(leftRV).isNull();
+        Assertions.assertThat(leftR).isEqualTo(4);
+        Assertions.assertThat(leftLV).isNull();
         Assertions.assertThat(rightLN).isNull();
         Assertions.assertThat(rightRV).isEqualTo(7);
     }
@@ -94,21 +94,13 @@ class SolutionTest {
 
         TreeNode afterDeletion = solution.deleteNode(root, 5);
 
-        int rootV = afterDeletion.val;
-        int leftV = afterDeletion.left.val;
-        int rightV = afterDeletion.right.val;
-        int leftLV = afterDeletion.left.left.val;
-        int leftRV = afterDeletion.left.right.val;
-        TreeNode rightLN = afterDeletion.right.left;
-        TreeNode rightRN = afterDeletion.right.right;
-
-        Assertions.assertThat(rootV).isEqualTo(6);
-        Assertions.assertThat(leftV).isEqualTo(3);
-        Assertions.assertThat(rightV).isEqualTo(7);
-        Assertions.assertThat(leftLV).isEqualTo(2);
-        Assertions.assertThat(leftRV).isEqualTo(4);
-        Assertions.assertThat(rightLN).isNull();
-        Assertions.assertThat(rightRN).isNull();
+        Assertions.assertThat(afterDeletion.val).isEqualTo(4);
+        Assertions.assertThat(afterDeletion.left.val).isEqualTo(3);
+        Assertions.assertThat(afterDeletion.right.val).isEqualTo(6);
+        Assertions.assertThat(afterDeletion.left.left.val).isEqualTo(2);
+        Assertions.assertThat(afterDeletion.left.right).isNull();  // 4 was removed
+        Assertions.assertThat(afterDeletion.right.left).isNull();
+        Assertions.assertThat(afterDeletion.right.right.val).isEqualTo(7);
     }
 
     @Test
