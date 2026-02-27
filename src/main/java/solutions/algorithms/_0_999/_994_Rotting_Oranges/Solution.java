@@ -1,7 +1,7 @@
 package solutions.algorithms._0_999._994_Rotting_Oranges;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.Queue;
 
 class Solution {
     /*
@@ -16,122 +16,61 @@ class Solution {
     -2 - rotten
     -1 - fresh
     this solution beats 100%
+
+    update: problem revisited - a standard BFS approach
      */
+    int[][] indices = new int[][]{{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
 
     public int orangesRotting(int[][] grid) {
 
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[0].length; x++) {
-                if (grid[y][x] == 0) {
-                    // new empty
-                    grid[y][x] = -3;
-                } else if (grid[y][x] == 2) {
-                    // new rotten
-                    grid[y][x] = -2;
-                } else if (grid[y][x] == 1) {
-                    // new fresh
-                    grid[y][x] = -1;
-                }
-            }
-        }
+
+        int allFresh = 0;
+        Queue<int[]> processingList = new LinkedList<>();
 
         for (int y = 0; y < grid.length; y++) {
             for (int x = 0; x < grid[0].length; x++) {
-                if (grid[y][x] == -2) {
-                    // it's rotten
-                    visitAndMark(y, x, grid, 0);
+                int v = grid[y][x];
+                if (v == 1) {
+                    allFresh++;
+                } else if (v == 2) {
+                    processingList.add(new int[]{y, x});
                 }
             }
         }
 
-        int maxFound = 0;
-        for (int[] ints : grid) {
-            for (int x = 0; x < grid[0].length; x++) {
-                if (ints[x] == -1) {
-                    // there is still a fresh one
-                    return -1;
+        if (allFresh == 0) {
+            return 0;
+        }
+
+        int roundCtr = -1;
+        while (!processingList.isEmpty()) {
+            roundCtr++;
+
+            int numberOfOrangesInThisRound = processingList.size();
+            for (int i = 0; i < numberOfOrangesInThisRound; i++) {
+                int[] currentOrange = processingList.poll();
+
+                for (int[] index : indices) {
+                    int yChange = index[0];
+                    int xChange = index[1];
+                    int newY = currentOrange[0] + yChange;
+                    int newX = currentOrange[1] + xChange;
+                    if (newY >= 0 && newY < grid.length && newX >= 0 && newX < grid[0].length) {
+                        if (grid[newY][newX] == 1) {
+                            grid[newY][newX] = 2;
+                            allFresh--;
+                            processingList.add(new int[]{newY, newX});
+                        }
+                    }
                 }
-                maxFound = Integer.max(maxFound, ints[x]);
             }
         }
-        return maxFound;
+        if (allFresh == 0) {
+            return roundCtr;
+        } else {
+            return -1;
+        }
+
     }
 
-    void visitAndMark(int y, int x, int[][] grid, int numberOfSteps) {
-
-        if (grid[y][x] >= 0 && grid[y][x] <= numberOfSteps) {
-            // it's been visited with a shorter path
-            return;
-        }
-        grid[y][x] = numberOfSteps;
-        if (y - 1 >= 0 && grid[y - 1][x] >= -1) {
-            visitAndMark(y - 1, x, grid, numberOfSteps + 1);
-        }
-        if (y + 1 < grid.length && grid[y + 1][x] >= -1) {
-            visitAndMark(y + 1, x, grid, numberOfSteps + 1);
-        }
-        if (x - 1 >= 0 && grid[y][x - 1] >= -1) {
-            visitAndMark(y, x - 1, grid, numberOfSteps + 1);
-        }
-        if (x + 1 < grid[0].length && grid[y][x + 1] >= -1) {
-            visitAndMark(y, x + 1, grid, numberOfSteps + 1);
-        }
-    }
-
-
-    // That's the first approach
-    public int orangesRotting_v1(int[][] grid) {
-
-        Set<int[]> setOfRotten = new HashSet<>();
-
-        int totalFresh = 0;
-        for (int y = 0; y < grid.length; y++) {
-            for (int x = 0; x < grid[0].length; x++) {
-                if (grid[y][x] == 2) {
-                    setOfRotten.add(new int[]{y, x});
-                } else if (grid[y][x] == 1) {
-                    totalFresh++;
-                }
-            }
-        }
-        int currentMin = 0;
-        int rotCounter = 0;
-        // process
-        Set<int[]> newRottens = new HashSet<>();
-        while (true) {
-            for (int[] anInt : setOfRotten) {
-                int y = anInt[0];
-                int x = anInt[1];
-
-                if (y - 1 >= 0 && grid[y - 1][x] == 1) {
-                    grid[y - 1][x] = 2;
-                    newRottens.add(new int[]{y - 1, x});
-                }
-                if (y + 1 < grid.length && grid[y + 1][x] == 1) {
-                    grid[y + 1][x] = 2;
-                    newRottens.add(new int[]{y + 1, x});
-                }
-                if (x - 1 >= 0 && grid[y][x - 1] == 1) {
-                    grid[y][x - 1] = 2;
-                    newRottens.add(new int[]{y, x - 1});
-                }
-                if (x + 1 < grid[0].length && grid[y][x + 1] == 1) {
-                    grid[y][x + 1] = 2;
-                    newRottens.add(new int[]{y, x + 1});
-                }
-            }
-            if (newRottens.isEmpty()) {
-                if (rotCounter == totalFresh) {
-                    return currentMin;
-                } else {
-                    return -1;
-                }
-            } else {
-                setOfRotten = new HashSet<>(newRottens);
-                rotCounter += newRottens.size();
-                newRottens.clear();
-            }
-            currentMin++;
-        }
-    }
 }

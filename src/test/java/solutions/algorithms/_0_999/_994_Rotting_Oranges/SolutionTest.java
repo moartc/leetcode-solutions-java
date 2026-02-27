@@ -34,7 +34,7 @@ class SolutionTest {
 
     @Test
     void orangesRottingTest5() {
-        int[][] grid = {{0}};
-        assertEquals(2, solution.orangesRotting(grid));
+        int[][] grid = {{2, 2}, {1, 1}, {0, 0}, {2, 0}};
+        assertEquals(1, solution.orangesRotting(grid));
     }
 }
