@@ -26,43 +26,41 @@ class Node {
     }
 }
 
+
 class Solution {
     /*
     I could use map to store the node value and list of values of its neighbours
+
+    update: single iteration sulution
      */
     public Node cloneGraph(Node node) {
 
         if (node == null) {
             return null;
         }
-        Map<Integer, List<Integer>> map = new HashMap<>();
-        Map<Integer, Node> listOfNodes = new HashMap<>();
-        collectNodes(node, map, listOfNodes);
-
-        // map should contain mapping info and listOfNodes all nodes
-        for (Node n : listOfNodes.values()) {
-            List<Integer> listOfNeighbours = map.get(n.val);
-            n.neighbors = new ArrayList<>();
-            for (Integer i : listOfNeighbours) {
-                n.neighbors.add(listOfNodes.get(i));
-            }
-        }
-        return listOfNodes.get(node.val);
+        Map<Integer, Node> indexToNode = new HashMap<>();
+        Node nodeToReturn = clone(node, indexToNode);
+        return nodeToReturn;
     }
 
-    /*
-    It returns node value mapped to its neighbours values
-    also it adds node to the list of nodes
-     */
-    void collectNodes(Node node, Map<Integer, List<Integer>> map, Map<Integer, Node> newNodes) {
-        if (!map.containsKey(node.val)) {
-            newNodes.put(node.val, new Node(node.val));
-            List<Integer> neighbours = new ArrayList<>();
-            map.put(node.val, neighbours);
-            for (Node neighbor : node.neighbors) {
-                neighbours.add(neighbor.val);
-                collectNodes(neighbor, map, newNodes);
+    Node clone(Node currentNode, Map<Integer, Node> map) {
+        if (map.containsKey(currentNode.val)) {
+            // do nothing
+            return map.get(currentNode.val);
+        } else {
+            Node newNode = new Node(currentNode.val);
+            map.put(newNode.val, newNode);
+            for (Node neighbor : currentNode.neighbors) {
+                Node neighbourToAdd = null;
+                if (map.containsKey(neighbor.val)) {
+                    neighbourToAdd = map.get(neighbor.val);
+                } else {
+                    neighbourToAdd = clone(neighbor, map);
+                }
+                newNode.neighbors.add(neighbourToAdd);
             }
+            return newNode;
         }
     }
+
 }
