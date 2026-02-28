@@ -30,85 +30,58 @@ class Solution {
 
     update: failed on the case where there is no direct connection - testcase 4
     I will add some bfs.
+
+    update: revisited - I think it's simpler now.
      */
     public double[] calcEquation(List<List<String>> equations, double[] values, List<List<String>> queries) {
 
-        Map<String, Map<String, Double>> map = new HashMap<>();
-        for (int i = 0; i < equations.size(); i++) {
-            double value = values[i];
-            List<String> pair = equations.get(i);
-            String f = pair.get(0);
-            String s = pair.get(1);
-            Map<String, Double> m1 = map.getOrDefault(f, new HashMap<>());
-            m1.put(s, value);
-            Map<String, Double> m2 = map.getOrDefault(s, new HashMap<>());
-            m2.put(f, 1 / value);
-            map.put(f, m1);
-            map.put(s, m2);
-        }
-        // at this point I have initial connections
 
-        double[] answer = new double[queries.size()];
+        Map<String, Map<String, Double>> map = new HashMap<>();
+
+        for (int i = 0; i < equations.size(); i++) {
+            List<String> eq = equations.get(i);
+            double value = values[i];
+            Map<String, Double> newHashMap1 = map.getOrDefault(eq.get(0), new HashMap<>());
+            newHashMap1.put(eq.get(1), value);
+            Map<String, Double> newHashMap2 = map.getOrDefault(eq.get(1), new HashMap<>());
+            newHashMap2.put(eq.get(0), 1 / value);
+            map.put(eq.get(0), newHashMap1);
+            map.put(eq.get(1), newHashMap2);
+        }
+
+        double[] result = new double[queries.size()];
         for (int i = 0; i < queries.size(); i++) {
             List<String> query = queries.get(i);
-            String qf = query.get(0);
-            String qs = query.get(1);
-
-            if (map.containsKey(qf) && map.containsKey(qs)) {
-                Map<String, Double> firstMap = map.get(qf);
-                if (firstMap.containsKey(qs)) {
-                    // there is a direct connection
-                    answer[i] = firstMap.get(qs);
-                    continue;
-                }
-                // try bfs
-                Double bfs = bfs(qs, firstMap, map, new HashSet<>());
-                if (bfs == Double.MAX_VALUE) {
-                    answer[i] = -1;
-                } else {
-                    answer[i] = bfs;
-                }
-
-            } else {
-                answer[i] = -1;
-            }
+            double answer = findAnswer(query.get(0), query.get(1), map, 1.0, new HashSet<>());
+            result[i] = answer;
         }
-        return answer;
+
+        return result;
     }
 
-    Double bfs(String toFind, Map<String, Double> currentMap, Map<String, Map<String, Double>> wholeMap, Set<String> visited) {
+    double findAnswer(String a, String b, Map<String, Map<String, Double>> map, double currentRes, Set<String> visited) {
 
-        Queue<Pair> queue = new LinkedList<>();
-
-        for (Map.Entry<String, Double> e : currentMap.entrySet()) {
-            queue.add(new Pair(e.getKey(), e.getValue()));
-            visited.add(e.getKey());
-        }
-
-        while (!queue.isEmpty()) {
-            Pair poll = queue.poll();
-            if (poll.key.equals(toFind)) {
-                return poll.value;
+        visited.add(a);
+        if (!map.containsKey(a)) {
+            return -1;
+        } else {
+            Map<String, Double> stringDoubleMap = map.get(a);
+            if (stringDoubleMap.containsKey(b)) {
+                Double v = stringDoubleMap.get(b);
+                return currentRes * v;
             } else {
-                // add all
-                for (Map.Entry<String, Double> e : wholeMap.get(poll.key).entrySet()) {
-                    if (visited.add(e.getKey())) {
-                        queue.add(new Pair(e.getKey(), poll.value * e.getValue()));
+                for (Map.Entry<String, Double> entry : stringDoubleMap.entrySet()) {
+                    String key = entry.getKey();
+                    Double value = entry.getValue();
+                    if (!visited.contains(key)) {
+                        double answer = findAnswer(key, b, map, currentRes * value, visited);
+                        if (answer != -1) {
+                            return answer;
+                        }
                     }
                 }
             }
         }
-        return Double.MAX_VALUE;
+        return -1;
     }
-
-    static class Pair {
-        public String key;
-        public double value;
-
-        public Pair(String key, double value) {
-            this.key = key;
-            this.value = value;
-        }
-    }
-
 }
