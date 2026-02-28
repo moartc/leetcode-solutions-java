@@ -22,4 +22,12 @@ class SolutionTest {
         boolean answer = solution.canFinish(numCourses, prerequisites);
         Assertions.assertThat(answer).isFalse();
     }
+
+    @Test
+    void canFinish3() {
+        int numCourses = 5;
+        int[][] prerequisites = new int[][]{{1, 4}, {2, 4}, {3, 1}, {3, 2}};
+        boolean answer = solution.canFinish(numCourses, prerequisites);
+        Assertions.assertThat(answer).isTrue();
+    }
 }
