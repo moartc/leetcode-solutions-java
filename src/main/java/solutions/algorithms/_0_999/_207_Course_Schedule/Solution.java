@@ -80,4 +80,45 @@ class Solution {
         return false;
     }
 
+    /*
+    solution with BFS for cycle detection
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+
+        List<List<Integer>> prerequisitList = new ArrayList<>();
+        for (int i = 0; i < numCourses; i++) {
+            prerequisitList.add(new ArrayList<>());
+        }
+        for (int[] prerequisite : prerequisites) {
+            int course = prerequisite[0];
+            int prereq = prerequisite[1];
+            prerequisitList.get(course).add(prereq);
+        }
+        int[] states = new int[numCourses];
+        for (int i = 0; i < numCourses; i++) {
+            if (hasCycle(i, states, prerequisitList)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    boolean hasCycle(int current, int[] states, List<List<Integer>> prerequisitList) {
+
+        if (states[current] == 1) {
+            return true;
+        } else if (states[current] == 2) {
+            return false;
+        }
+        states[current] = 1;
+        List<Integer> prerequisites = prerequisitList.get(current);
+        for (Integer prerequisite : prerequisites) {
+            if (hasCycle(prerequisite, states, prerequisitList)) {
+                return true;
+            }
+        }
+        states[current] = 2;
+        return false;
+    }
+     */
+
 }
