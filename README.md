@@ -1,1 +1,1 @@
-![LeetCode Stats](https://leetcode-status.vercel.app/api/card/moart?theme=light&layout=card&border=true&hide_title=false&logo=true&animation=true&animation_duration=2s&show_stats=false&font=Roboto)
+![LeetCode Stats](https://www.readmecodegen.com/api/leetcode-stats/moart?theme=dark&acceptance=false&reputation=false&template=minimal)
