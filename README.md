@@ -1,1 +1,1 @@
-![LeetCode Stats](https://www.readmecodegen.com/api/leetcode-stats/moart?theme=dark&acceptance=false&reputation=false&template=minimal)
+![](https://leetcard.jacoblin.cool/moart?theme=light)
