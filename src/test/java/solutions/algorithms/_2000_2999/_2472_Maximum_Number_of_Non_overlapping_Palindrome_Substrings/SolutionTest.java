@@ -1,0 +1,66 @@
+package solutions.algorithms._2000_2999._2472_Maximum_Number_of_Non_overlapping_Palindrome_Substrings;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+class SolutionTest {
+
+    private final Solution solution = new Solution();
+
+    @Test
+    void maxPalindromes1() {
+        String s = "abaccdbbd";
+        int k = 3;
+        int answer = solution.maxPalindromes(s, k);
+        Assertions.assertThat(answer).isEqualTo(2);
+    }
+
+    @Test
+    void maxPalindromes2() {
+        String s = "adbcda";
+        int k = 2;
+        int answer = solution.maxPalindromes(s, k);
+        Assertions.assertThat(answer).isEqualTo(0);
+    }
+
+    @Test
+    void maxPalindromes3() {
+        String s = "iqqibcecvrbxxj";
+        int k = 1;
+        int answer = solution.maxPalindromes(s, k);
+        Assertions.assertThat(answer).isEqualTo(14);
+    }
+
+    @Test
+    void maxPalindromes4() {
+        String s = "fttfjofpnpfydwdwdnns";
+        int k = 2;
+        int answer = solution.maxPalindromes(s, k);
+        Assertions.assertThat(answer).isEqualTo(4);
+    }
+
+    @Test
+    void maxPalindromes5() {
+        String s = "nidinhplkemyryyrymeklphnidinpwlkogggifpupxmxsxxsxmxpupfigggoklwpkxrrcrbytyjqbpbqidvwpymvgygvmypwvdiqbpbqjytybrcrrajrfvgwzmniukskuinmzwgvfremvyhunljhjbuszfozofzsubjhjlnuhyvmesodgkgvnyeobvvbbvvboeynvbkrmkkkkmrkbmhseoqhphkpimegfaelmwlibbbbilwmleafgemipkhphqoeshmehidggatdaeevevwqqlhncxlcpkvqnnqvkpclxcnhlqqwveveeadtaggdojcryfdckcuwwinimpxybthtbyxpminiwwuckcdfyrcjgxkvsibhaodwppwdoahbisvkddquufokwjdzzvckybmwxmbjbmxwmbykcvzzdjwkofuuqsbmmfbxaynonlxkzuhhlqwwqlhhuzkxlnonyaxbfmmbszfrrfzlztimifvywnjwidebfegjixugqgeuuegqguxijgefbediwjnwyvfimitrojxfbglwxxhmlctqkrorkqtclmhxxwlgbfxjoxkaccdajnuegrytenttnetyrgeunjadccahsammbxbbxbmmashfdznohifexneahpimkkmiphaenxejoinhnnzpyuegclzerejejerezlcgeuypznnhniojiwgrixqfvmzdjjdzmvfqxirgwxcnbubnccnxxncskpkbqbkyqjsclpskkreasklbboobblksaerkksplcsjkklqqjwjqqlkkpjuwslpeomxxmoeplswtonqgncvfazkoguviuiiuivugokzafvcngqikluwzutwkrlqmoegypztwhpdwrwdphwtzpygeomqlrkwtuzwulktelwojlfoxphulqugduxkkkkxudguqluhpxophkdxnlifuvgcbbcgvufilnjrokcphagutlciauhujdcqqztushsutzqqcdjuhuaicltugalusowprahtdddlgafxssevondrvxvrdnovessxfagldddtharpwocnpensowmbbdctsnbgcgioarfpwwpfraoigcgbnstcdbbmwosegscreyeedzkuoacfjpsekkespjfcaoukzdeeyercsgupmxvidfqwqmpkfkpmqwqfdivxmlmsekutsejvppvjestukesnfmrgcttcgrmfapnwvjebieeweeibejvwnvk";
+        int k = 4;
+        int answer = solution.maxPalindromes(s, k);
+        Assertions.assertThat(answer).isEqualTo(44);
+    }
+
+    @Test
+    void maxPalindromes6() {
+        String s = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+        int k = 4;
+        int answer = solution.maxPalindromes(s, k);
+        Assertions.assertThat(answer).isEqualTo(500);
+    }
+
+    @Test
+    void maxPalindromes7() {
+        String s = "ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss";
+        int k = 2;
+        int answer = solution.maxPalindromes(s, k);
+        Assertions.assertThat(answer).isEqualTo(1000);
+    }
+
+}
